@@ -8,4 +8,4 @@ playlists.forEach(playlist => {
     let PL = new Playlist(playlist);
 
     document.body.appendChild(PL.container);
-})
+});
