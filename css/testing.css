@@ -1,0 +1,110 @@
+body {
+    font-family: system-ui;
+}
+
+.Playlist__playlist {
+    width: 350px;
+    background: #333;
+    margin-bottom: 10px;
+    user-select: none;
+    overflow: hidden;
+}
+
+.Playlist__info {
+    background: #222;
+    padding: 20px;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Playlist__info:hover {
+    cursor: pointer;
+}
+
+.Playlist__name {
+    color: #fff;
+}
+
+.Playlist__songs {
+    max-height: 0px;
+    overflow: hidden;
+    transition: max-height 0.1s ease-in;
+}
+
+.Playlist__songs.expanded {
+    max-height: 1000px; /* Un valor grande para asegurar que se expanda completamente */
+    transition: max-height 0.5s ease-in; /* Duración de la animación de 1 segundo */
+}
+
+.Playlist__song {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #444;
+    color: #ccc;
+    cursor: pointer;
+    transition: 0.2s ease-out;
+
+}
+
+.Playlist__song:hover {
+    background: #444;
+    color: #fff;
+    padding-left: 25px;
+    transition: 0.2s ease-out;
+}
+
+.Playlist__song img {
+    width: 70px;
+    margin-right: 10px;
+}
+
+.Playlist__info img {
+    width: 25px;
+    filter: invert(1);
+}
+
+.Playlist__floatingCover {
+    background: #333;
+    padding: 5px;
+    position: absolute;
+    pointer-events: none;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    left: 0;
+    margin-left: -100px;
+    opacity: 0;
+    animation: apareixerImatge 0.2s ease-out;
+
+}
+
+.Playlist__floatingCover img {
+    width: 100%;
+    height: 100%;
+}
+
+.Playlist__floatingCover.appear {
+    opacity: 1;
+    margin-left: 0px;
+    /* transition: 0.2s ease-in; */
+    animation: apareixerImatge 0.2s ease-out;
+}
+
+@keyframes apareixerImatge {
+    0% {
+        opacity: 0;
+        margin-left: -100px;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+
+    100% {
+        opacity: 1;
+        margin-left: 0;
+    }
+}

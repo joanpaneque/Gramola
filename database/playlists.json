@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Summer Vibes",
+        "songs": [0, 3, 6, 9, 10]
+    },
+    {
+        "name": "Chill Out Zone",
+        "songs": [1, 4, 7, 11]
+    },
+    {
+        "name": "Rock Classics",
+        "songs": [2, 5, 8]
+    },
+    {
+        "name": "Late Night Jams",
+        "songs": [0, 3, 6, 9]
+    },
+    {
+        "name": "Pop Hits",
+        "songs": [1, 4, 7, 10]
+    },
+    {
+        "name": "Indie Gems",
+        "songs": [2, 5, 8, 11]
+    },
+    {
+        "name": "Workout Mix",
+        "songs": [0, 3, 6, 7, 9]
+    },
+    {
+        "name": "Acoustic Serenade",
+        "songs": [1, 2, 4, 5, 10, 11]
+    }
+]

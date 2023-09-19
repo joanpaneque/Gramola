@@ -1,0 +1,74 @@
+[
+    {
+        "title": "Viva la vida",
+        "artist": "Coldplay",
+        "url": "assets\\audio\\Coldplay - Viva La Vida.mp3",
+        "cover": "assets\\img\\Coldplay - Viva La Vida.png"
+    },
+    {
+        "title": "Dance the night",
+        "artist": "Dua Lipa",
+        "url": "assets\\audio\\Dua Lipa - Dance The Night.mp3",
+        "cover": "assets\\img\\Dua Lipa - Dance The Night.png"
+    },
+    {
+        "title": "Shape of you",
+        "artist": "Ed Sheeran",
+        "url": "assets\\audio\\Ed Sheeran - Shape Of You.mp3",
+        "cover": "assets\\img\\Ed Sheeran - Shape Of You.png"
+    },
+    {
+        "title": "Physical",
+        "artist": "Erik Frank",
+        "url": "assets\\audio\\Erik Frank - Physical.mp3",
+        "cover": "assets\\img\\Erik Frank - Physical.png"
+    },
+    {
+        "title": "Now we are free",
+        "artist": "Hans Zimmer",
+        "url": "assets\\audio\\Hans Zimmer - Now We Are Free.mp3",
+        "cover": "assets\\img\\Hans Zimmer - Now We Are Free.png"
+    },
+    {
+        "title": "Hurt Me",
+        "artist": "Jake Hope",
+        "url": "assets\\audio\\Jake Hope - Hurt Me.mp3",
+        "cover": "assets\\img\\Jake Hope - Hurt Me.png"
+    },
+    {
+        "title": "Sorry",
+        "artist": "Justin Bieber",
+        "url": "assets\\audio\\Justin Bieber - Sorry.mp3",
+        "cover": "assets\\img\\Justin Bieber - Sorry.png"
+    },
+    {
+        "title": "Roar",
+        "artist": "Katy Perry",
+        "url": "assets\\audio\\Katy Perry - Roar.mp3",
+        "cover": "assets\\img\\Katy Perry - Roar.png"
+    },
+    {
+        "title": "Uptown Funk",
+        "artist": "Mark Ronson",
+        "url": "assets\\audio\\Mark Ronson - Uptown Funk.mp3",
+        "cover": "assets\\img\\Mark Ronson - Uptown Funk.png"
+    },
+    {
+        "title": "Sugar",
+        "artist": "Maroon 5",
+        "url": "assets\\audio\\Maroon 5 - Sugar.mp3",
+        "cover": "assets\\img\\Maroon 5 - Sugar.png"
+    },
+    {
+        "title": "Counting Stars",
+        "artist": "OneRepublic",
+        "url": "assets\\audio\\OneRepublic - Counting Stars.mp3",
+        "cover": "assets\\img\\OneRepublic - Counting Stars.png"
+    },
+    {
+        "title": "On My Love",
+        "artist": "Zara Larsson",
+        "url": "assets\\audio\\Zara Larsson - On My Love.mp3",
+        "cover": "assets\\img\\Zara Larsson - On My Love.png"
+    }
+]
