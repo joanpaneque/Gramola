@@ -3,21 +3,34 @@ body {
 }
 
 .Playlist__playlist {
-    width: 350px;
+    width: 250px;
     background: #333;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
     user-select: none;
     overflow: hidden;
+    transition: 1s;
 }
 
 .Playlist__info {
     background: #222;
-    padding: 20px;
+    padding: 10px;
     font-size: 1em;
     display: flex;
     align-items: center;
     gap: 10px;
 }
+
+.Playlist__info img {
+    height: 15px;
+    margin-left: 10px;
+    filter: invert(1);
+}
+
+.Playlist__song img {
+    width: 25px;
+    margin-right: 10px;
+}
+
 
 .Playlist__info:hover {
     cursor: pointer;
@@ -34,8 +47,8 @@ body {
 }
 
 .Playlist__songs.expanded {
-    max-height: 1000px; /* Un valor grande para asegurar que se expanda completamente */
-    transition: max-height 0.5s ease-in; /* Duración de la animación de 1 segundo */
+    max-height: 1000px;
+    transition: max-height 0.5s ease-in;
 }
 
 .Playlist__song {
@@ -46,6 +59,8 @@ body {
     color: #ccc;
     cursor: pointer;
     transition: 0.2s ease-out;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
 }
 
@@ -56,15 +71,8 @@ body {
     transition: 0.2s ease-out;
 }
 
-.Playlist__song img {
-    width: 70px;
-    margin-right: 10px;
-}
 
-.Playlist__info img {
-    width: 25px;
-    filter: invert(1);
-}
+
 
 .Playlist__floatingCover {
     background: #333;
@@ -107,4 +115,51 @@ body {
         opacity: 1;
         margin-left: 0;
     }
+}
+
+
+.Playlist__song__text__container {
+    display: flex;
+    gap: 10px;
+    overflow: hidden;
+    width: fit-content;
+}
+
+.Playlist__song__text {
+    position: relative;
+}
+
+.Playlist__song__text:last-child {
+    visibility: hidden;
+}
+
+.playlists {
+    width: fit-content;
+    height: 500px;
+    overflow-y: scroll;
+    background: #555;
+}
+
+/* Style the scrollbar width and color for Firefox */
+.playlists {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #555; /* Change the colors as desired */
+}
+
+/* Style the scrollbar track and thumb for Chrome */
+.playlists::-webkit-scrollbar {
+    width: 10px; /* Adjust the width as needed */
+    background-color: #555;
+}
+
+.playlists::-webkit-scrollbar-thumb {
+    background-color: #888; /* Change the color as desired */
+}
+
+.playlists::-webkit-scrollbar-thumb:hover {
+    background-color: #999; /* Change the color on hover */
+}
+
+#jukebox {
+    width: 100%;
 }
