@@ -5,7 +5,6 @@ body {
 .Playlist__playlist {
     width: 250px;
     background: #333;
-    /* margin-bottom: 10px; */
     user-select: none;
     overflow: hidden;
     transition: 1s;
@@ -27,10 +26,14 @@ body {
 }
 
 .Playlist__song img {
+    height: 100%;
+}
+
+.Playlist__song__cover__container {
+    height: 25px;
     width: 25px;
     margin-right: 10px;
 }
-
 
 .Playlist__info:hover {
     cursor: pointer;
@@ -61,7 +64,6 @@ body {
     transition: 0.2s ease-out;
     white-space: nowrap;
     text-overflow: ellipsis;
-
 }
 
 .Playlist__song:hover {
@@ -71,7 +73,21 @@ body {
     transition: 0.2s ease-out;
 }
 
+.Playlist__song:hover .Playlist__song__cover__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+}
 
+.Playlist__song__cover__overlay {
+    display: none;
+}
 
 
 .Playlist__floatingCover {
@@ -162,4 +178,33 @@ body {
 
 #jukebox {
     width: 100%;
+}
+
+.AudioPlayer__progress {
+    width: 700px;
+}
+.Playlist__song__cover__overlay {
+    width: 25px;
+    height: 25px;
+}
+
+.Playlist__song__cover__overlay img {
+    filter: invert(1);
+}
+
+.Playlist__song__cover__overlay img:last-child {
+    display: none;
+}
+
+.Playlist__song__cover__container {
+    position: relative;
+}
+
+.Playlist__song__cover__overlay img {
+    filter: invert(1);
+    opacity: 0.8;
+}
+
+.Playlist__song__text.playing {
+    color: #ffb3a0;
 }

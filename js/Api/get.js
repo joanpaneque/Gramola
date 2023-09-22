@@ -1,6 +1,6 @@
 export default class get {
     static async songs() {
-        return await getJSON('songs');
+        return getJSON('songs');
     }
 
     static async playlists() {

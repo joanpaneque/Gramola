@@ -1,5 +1,5 @@
 import Component from "../Component.js";
-import { songs } from "../../app.js";
+import { songs, audioPlayer } from "../../app.js";
 
 export default class Playlist extends Component {
     constructor(playlist) {
@@ -14,7 +14,14 @@ export default class Playlist extends Component {
             <div class="Playlist__songs">
                 ${playlist.songs.map(song => `
                     <div class="Playlist__song" song-id="${song}">
-                        <img src="${songs[song].cover}" alt="${songs[song].title}">
+                        <div class="Playlist__song__cover__container">
+                            <div class="Playlist__song__cover__overlay">
+                                <img src="assets\\img\\svg\\play.svg" class="Playlist__song__cover__overlay__play">
+                                <img src="assets\\img\\svg\\pause.svg" class="Playlist__song__cover__overlay__pause">
+                            </div>
+
+                            <img src="${songs[song].cover}" alt="${songs[song].title}" class="Playlist__song__cover__floating">
+                        </div>
                         <div class="Playlist__song__text__container">
                             <div class="Playlist__song__text">${songs[song].artist} - ${songs[song].title}</div>
                             <div class="Playlist__song__text">${songs[song].artist} - ${songs[song].title}</div>
@@ -106,7 +113,7 @@ export default class Playlist extends Component {
                 let floatingCover = document.createElement("div");
                 floatingCover.innerHTML = `
                     <div class="Playlist__floatingCover" style="top: ${rect.top + window.scrollY}px; left: ${rect.left + rect.width + 15}px">
-                        <img src="${song.querySelector("img").src}">
+                        <img src="${song.querySelector(".Playlist__song__cover__floating").src}">
                     </div>                
                 `;
                 document.body.appendChild(floatingCover);
@@ -136,9 +143,58 @@ export default class Playlist extends Component {
             });
 
             song.addEventListener("click", () => {
-                let clickedSong = songs[song.getAttribute("song-id")];
+                let songId = song.getAttribute("song-id");
+
+                const playButtons = document.querySelectorAll(`.Playlist__song[song-id="${songId}"] .Playlist__song__cover__overlay__play`);
+                const pauseButtons = document.querySelectorAll(`.Playlist__song[song-id="${songId}"] .Playlist__song__cover__overlay__pause`);
+
+                const currentSongsText = document.querySelectorAll(`.Playlist__song[song-id="${songId}"] .Playlist__song__text`);
+                const songsText = document.querySelectorAll(`.Playlist__song__text`);
+
+                songsText.forEach(text => {
+                    text.classList.remove("playing");
+                });
+
+                currentSongsText.forEach(text => {
+                    text.classList.add("playing");
+                })
+
+                if (songId != audioPlayer.songId) {
+                    audioPlayer.playing = false;
+                    audioPlayer.stop();
+                }
+
+                if (audioPlayer.playing) {
+                    audioPlayer.pause();
+                    playButtons.forEach(button => button.style.display = "block");
+                    pauseButtons.forEach(button => button.style.display = "none");
+                    // song.querySelector(".Playlist__song__cover__overlay__play").style.display = "block";
+                    // song.querySelector(".Playlist__song__cover__overlay__pause").style.display = "none";
+                } else {
+                    audioPlayer.songId = songId;
+                    this.stopAllSongs();
+                    audioPlayer.play();
+    
+                    playButtons.forEach(button => button.style.display = "none");
+                    pauseButtons.forEach(button => button.style.display = "block");
+                    // song.querySelector(".Playlist__song__cover__overlay__play").style.display = "none";
+                    // song.querySelector(".Playlist__song__cover__overlay__pause").style.display = "block";
+                }
             });
 
+        });
+    }
+
+    stopAllSongs() {
+        const playButtons = document.querySelectorAll(".Playlist__song__cover__overlay__play");
+        const pauseButtons = document.querySelectorAll(".Playlist__song__cover__overlay__pause");
+
+        playButtons.forEach(button => {
+            button.style.display = "block";
+        });
+
+        pauseButtons.forEach(button => {
+            button.style.display = "none";
         });
     }
 }
