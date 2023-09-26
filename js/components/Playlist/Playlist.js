@@ -5,11 +5,14 @@ export default class Playlist extends Component {
     constructor(playlist) {
         super();
         this.container.classList.add("Playlist__playlist");
-
         this.HTML = `
             <div class="Playlist__info">
                 <img src="assets\\img\\svg\\playlist.svg">
                 <div class="Playlist__name">${playlist.name}</div>
+                <div class="Playlist__info__right">
+                    <div class="Playlist__play"><img src="assets\\img\\svg\\play.svg"></div>
+                    <div class="Playlist__unfold"><img src="assets\\img\\svg\\arrow-right.svg"></div>
+                </div>
             </div>
             <div class="Playlist__songs">
                 ${playlist.songs.map(song => `
@@ -19,7 +22,6 @@ export default class Playlist extends Component {
                                 <img src="assets\\img\\svg\\play.svg" class="Playlist__song__cover__overlay__play">
                                 <img src="assets\\img\\svg\\pause.svg" class="Playlist__song__cover__overlay__pause">
                             </div>
-
                             <img src="${songs[song].cover}" alt="${songs[song].title}" class="Playlist__song__cover__floating">
                         </div>
                         <div class="Playlist__song__text__container">
@@ -33,32 +35,68 @@ export default class Playlist extends Component {
 
         this.container.innerHTML = this.HTML;
 
+        // Cada playlist té una animació de desplegament al fer clic que funciona mitjançant CSS
         this.container.querySelector(".Playlist__info").onclick = () => {
             const playlistSongs = this.container.querySelector(".Playlist__songs");
             playlistSongs.classList.toggle("expanded");
         }
 
+        // Lògica de cada cançó d'una playlist
         this.container.querySelectorAll(".Playlist__song").forEach(song => {
-            let mouseOver = false;
 
-            // cR = container rect
-            // iR = text info rect
-            // cW = container width
-            // iW = info width
+            // Quan el text d'una cancó a dins d'una playlist no cap, aquest es mourà cap a l'esquerra:
+            // Variables necessàries per realitzar aquesta lògica:
+
+            let mouseOver = false;  // Variable necessària per al moviment del text
+
+            // cR = container rect  | rect de this.container
+            // iR = text info rect  | rect del nom + artista de la cançó 
+            // cW = container width | cR.width - iR.left - cR.left (Mida del text)
+            // iW = info width      | iR.width (Mida del espai màxim possible per al text)
 
             let cR;
             let iR;
             let cW;
             let iW;
 
-            let reentering = false;
+            // Per realitzar la il·lusió del text en moviment, en realitat utilitzarem dos texts, i per defecte
+            // estaràn a la seva posició inicial (0)
 
-            let text1left = 0;
-            let text2left = 0;
+            //  0px         0px
+            //   |           |
+            //   |           |
+            //  \/          \/
+            //   primertext  segontext
+            let text1left = 0; // px
+            let text2left = 0; // px
+
+            // Variables necessàries per calcular el deltaTime.
+
+            // deltaTime és una variable en la que guardarem el temps que passa entre cada fotograma del monitor.
+            // aquesta variable canviarà depenent de la velocitat de refresc en Hz del monitor.
+            // Per defecte les pantalles solen ser de 60Hz, però existeixen pantalles de 75, 120, 144, 240, 360 Hz...
+            // Per tant la variable serà actualitzada la quantitat de Hz que tingui l'usuari per segon.
+            // deltaTime no només és necessari per la quantitat de Hz de la pantalla del client. El client també
+            // pot patir baixades de rendiment per culpa d'aplicacións de tercers i el refresc de fotogrames per segon
+            // es pot veure afectat i ser inferior als Hz de la pantalla
+
+            //  Acum.  |  0.016  | 0.0316  | 0.486   |  0.636     |
+            //         |---------|---------|---------|------------|
+            //  Temps  |  0.016  | 0.0156  |  0.017  | 0.015      |
+            //         |---------|---------|---------|------------|
+            //  Frame  | FRAME 1 | FRAME 2 | FRAME 3 | FRAME 4... |
 
             let lastTime = 0;
             let deltaTime = 0;
 
+            // Velocitat del text quan està en moviment
+
+            // !! Aquesta no és la velocitat real, la real es calcula fent speed * deltaTime
+            // d'aquesta manera la velocitat serà la mateixa en qualsevol tipus de pantalla
+            // Si utilitzem una velocitat constant de 30px per frame en una pantalla de 60Hz avançarem 1800px en un segon
+            // En canvi si utilitzem la mateixa velocitat en una pantalla de 120Hz avançarem 3600px
+            // 
+            // La solució a aquest problema és la que està plantejada anteriorment.
             const speed = 30;
 
             const [text1, text2] = song.querySelectorAll(".Playlist__song__text");
@@ -73,7 +111,6 @@ export default class Playlist extends Component {
                     text1left -= 0.3;
                     text2left -= 0.3;
                 } else {
-                    console.log(deltaTime);
                     text1left -= speed * deltaTime;
                     text2left -= speed * deltaTime;
                 }
@@ -121,7 +158,6 @@ export default class Playlist extends Component {
                 setTimeout(() => {
                     floatingCover.querySelector(".Playlist__floatingCover").classList.add("appear");
                 });
-
 
             });
 

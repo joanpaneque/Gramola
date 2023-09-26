@@ -70,5 +70,17 @@
         "artist": "Zara Larsson",
         "url": "assets\\audio\\Zara Larsson, David Guetta - On My Love.mp3",
         "cover": "assets\\img\\Zara Larsson, David Guetta - On My Love.png"
+    },
+    {
+        "title": "All We Never Knew",
+        "artist": "The Head And The Heart",
+        "url": "assets\\audio\\The Head And The Heart - All We Never Knew.mp3",
+        "cover": "assets\\img\\The Head And The Heart - All We Never Knew.png"
+    },
+    {
+        "title": "Bumpy Ride",
+        "artist": "Mohombi",
+        "url": "assets\\audio\\Mohombi - Bumpy Ride.mp3",
+        "cover": "assets\\img\\Mohombi - Bumpy Ride.jpg"
     }
 ]
