@@ -7,8 +7,25 @@
     <link rel="stylesheet" href="css/testing.css">
 </head>
 <body>
-    <div class="playlists" id="playlists">
+
+    <form id="upload-form" action="php/upload.php" method="post" enctype="multipart/form-data" target="upload-target">
+        <input type="file" name="file" id="file-input">
+        <input type="submit" value="Upload File">
+    </form>
+    <iframe name="upload-target" style="display:none;"></iframe>
+
+    <div class="playlist-container">
+        <div class="playlist-container-header">
+            <div class="playlist-container-header-name">Biblioteca</div>
+            <div class="playlist-container-header-add"><img src="assets\img\svg\plus.svg"></div>
+        </div>
+        <div class="playlists" id="playlists">
         
+        </div>
     </div>
+
+    <form>
+
+    </form>
 </body>
 </html>

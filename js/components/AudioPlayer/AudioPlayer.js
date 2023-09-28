@@ -38,11 +38,7 @@ export default class AudioPlayer extends Component {
         `;
 
         this.reloadConstructor();
-
-
     }
-
-
 
     positionThumb = (x, update = true) => {
         const progressbarRect = this.progressbar.getBoundingClientRect();
@@ -78,6 +74,7 @@ export default class AudioPlayer extends Component {
                 this.songId = null;
                 this.clearMediaSessionMetadata();
                 this.stopAllSongs();
+                
                 this.reloadConstructor();
                 this.time.innerHTML = "--:-- / --:--"
             });
@@ -88,6 +85,14 @@ export default class AudioPlayer extends Component {
 
 
     play() {
+
+        // this.songId = playlist.songs[0];
+        // document.querySelectorAll(`[song-id]`).forEach(song => {
+        //     song.classList.remove("primary-color");
+        // });
+        // document.querySelectorAll(`[song-id="${this.songId}"`).forEach(song => {
+        //     song.classList.add("primary-color");
+        // });
         let play_icon = `<div class="music-icon"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>`;
         this.player.classList.remove("disabled");
 
@@ -97,7 +102,6 @@ export default class AudioPlayer extends Component {
         this.playing = true;
         this.cache[this.songId].play();
         this.playbutton.innerHTML = `<img src="assets\\img\\svg\\pause.svg">`;
-        console.log(this.infoText);
         this.infoText.innerHTML = `
             <div class="status-box__child">${play_icon}Reproduint <strong>${this.songs[this.songId].title} - ${this.songs[this.songId].artist}</strong>${play_icon}</div>
             <div class="status-box__child">${play_icon}Reproduint <strong>${this.songs[this.songId].title} - ${this.songs[this.songId].artist}</strong>${play_icon}</div>
@@ -125,6 +129,9 @@ export default class AudioPlayer extends Component {
             text1.style.left = `${this.text1left}px`;
             text2.style.left = `${this.text2left}px`;
 
+            const progressbarRect = this.progressbar.getBoundingClientRect();
+            this.positionThumb(progressbarRect.width * (this.getCurrentTime() / this.getDuration()) + progressbarRect.left, false);
+
             if (this.text2left < -tR.width) {
                 this.text1left = 0;
                 this.text2left = cR.width - tR.width;
@@ -149,6 +156,7 @@ export default class AudioPlayer extends Component {
         this.playbutton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
         this.reloadConstructor();
         this.stopAllSongs();
+        
 
     }
 
@@ -200,7 +208,6 @@ export default class AudioPlayer extends Component {
         this.playbutton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
         const playButtons = document.querySelectorAll(".Playlist__song__cover__overlay__play");
         const pauseButtons = document.querySelectorAll(".Playlist__song__cover__overlay__pause");
-        const songsText = document.querySelectorAll(`.Playlist__song__text`);
 
         playButtons.forEach(button => {
             button.style.display = "block";
@@ -208,10 +215,6 @@ export default class AudioPlayer extends Component {
 
         pauseButtons.forEach(button => {
             button.style.display = "none";
-        });
-
-        songsText.forEach(text => {
-            text.classList.remove("playing");
         });
     }
 
@@ -234,6 +237,9 @@ export default class AudioPlayer extends Component {
         this.stopbutton = this.container.querySelector(".AudioPlayer__stopbutton");
         this.stopbutton.addEventListener("click", () => {
             this.stop();
+            document.querySelectorAll(".playing").forEach(song => {
+                song.classList.remove("playing");
+            })
         });
         this.barX = 0;
         setTimeout(() => {

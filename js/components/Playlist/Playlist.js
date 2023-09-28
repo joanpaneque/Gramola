@@ -35,10 +35,72 @@ export default class Playlist extends Component {
 
         this.container.innerHTML = this.HTML;
 
+        this.playButton = this.container.querySelector(".Playlist__play");
+        this.unfoldButton = this.container.querySelector(".Playlist__unfold");
+
+        this.playlistName = this.container.querySelector(".Playlist__name");
+
+        this.playlistInfo = this.container.querySelector(".Playlist__info");
+
+        this.playlistInfo.addEventListener("mouseenter", () => {
+            this.playButton.classList.remove("hover");
+            this.unfoldButton.classList.add("hover");
+        });
+
+        this.playlistInfo.addEventListener("mouseleave", () => {
+            this.playButton.classList.remove("hover");
+            this.unfoldButton.classList.remove("hover");
+        });
+
+        this.playButton.addEventListener("click", e => {
+            document.querySelectorAll(".Playlist__name").forEach(element => {
+                // element.style.color = "#fff";
+            });
+
+            const root = document.documentElement;
+            const primary_color = getComputedStyle(root).getPropertyValue("--primary-color");
+            this.playlistName.style.color = primary_color;
+
+            const img = this.playButton.querySelector("img");
+            if (img.src.includes("play.svg")) {
+                document.querySelectorAll(".Playlist__play").forEach(icon => {
+                    icon.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
+                })
+                this.playButton.innerHTML = `<img src="assets\\img\\svg\\pause.svg">`;
+                audioPlayer.play(playlist);
+            } else {
+                this.playButton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
+                // this.playlistName.style.color = "#fff";
+            }
+
+
+
+            e.stopPropagation();
+        });
+
+        this.playButton.addEventListener("mouseenter", () => {
+            this.playButton.classList.add("hover");
+            this.unfoldButton.classList.remove("hover");
+        });
+
+        this.playButton.addEventListener("mouseleave", () => {
+            this.playButton.classList.remove("hover");
+            this.unfoldButton.classList.add("hover");
+        });
+
+        this.unfoldButton.addEventListener("mouseenter", () => {
+            this.unfoldButton.classList.add("hover");
+        });
+
+        this.unfoldButton.addEventListener("mouseleave", () => {
+            this.unfoldButton.classList.remove("hover");
+        });
+
         // Cada playlist té una animació de desplegament al fer clic que funciona mitjançant CSS
         this.container.querySelector(".Playlist__info").onclick = () => {
             const playlistSongs = this.container.querySelector(".Playlist__songs");
             playlistSongs.classList.toggle("expanded");
+            this.unfoldButton.classList.toggle("folded");  
         }
 
         // Lògica de cada cançó d'una playlist
@@ -158,7 +220,6 @@ export default class Playlist extends Component {
                 setTimeout(() => {
                     floatingCover.querySelector(".Playlist__floatingCover").classList.add("appear");
                 });
-
             });
 
             song.addEventListener("mouseleave", () => {
@@ -169,13 +230,13 @@ export default class Playlist extends Component {
                     text2.style.left = 0;
                     text1left = 0;
                     text2left = 0;
-                })
+                });
 
                 text2.style.visibility = "hidden";
 
                 document.querySelectorAll(".Playlist__floatingCover").forEach(floatingCover => {
                     floatingCover.remove();
-                })
+                });
             });
 
             song.addEventListener("click", () => {
@@ -186,6 +247,7 @@ export default class Playlist extends Component {
 
                 const currentSongsText = document.querySelectorAll(`.Playlist__song[song-id="${songId}"] .Playlist__song__text`);
                 const songsText = document.querySelectorAll(`.Playlist__song__text`);
+
 
                 songsText.forEach(text => {
                     text.classList.remove("playing");
@@ -202,19 +264,16 @@ export default class Playlist extends Component {
 
                 if (audioPlayer.playing) {
                     audioPlayer.pause();
+                    audioPlayer.playing = false;
                     playButtons.forEach(button => button.style.display = "block");
                     pauseButtons.forEach(button => button.style.display = "none");
-                    // song.querySelector(".Playlist__song__cover__overlay__play").style.display = "block";
-                    // song.querySelector(".Playlist__song__cover__overlay__pause").style.display = "none";
                 } else {
                     audioPlayer.songId = songId;
-                    this.stopAllSongs();
+                    audioPlayer.playing = true;
                     audioPlayer.play();
-    
+                    this.stopAllSongs();    
                     playButtons.forEach(button => button.style.display = "none");
                     pauseButtons.forEach(button => button.style.display = "block");
-                    // song.querySelector(".Playlist__song__cover__overlay__play").style.display = "none";
-                    // song.querySelector(".Playlist__song__cover__overlay__pause").style.display = "block";
                 }
             });
 

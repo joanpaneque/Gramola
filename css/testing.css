@@ -6,19 +6,26 @@
 body {
     font-family: system-ui;
     background: #111;
+    margin: 0;
+    color: red;
 }
 
 .playlists {
     height: 328px;
     border-bottom: 1px solid #2C2C2C;
+    width: 250px;
+}
+
+.playlist-container {
+    width: 250px;
 }
 
 .Playlist__playlist {
-    width: 250px;
     background: #333;
     user-select: none;
     overflow: hidden;
     transition: 1s;
+    width: 250px;
 }
 
 .Playlist__info {
@@ -226,8 +233,6 @@ body {
     cursor: pointer;
 }
 
-
-
 .AudioPlayer__progressbar__progress {
     position: relative;
     height: 100%;
@@ -428,6 +433,7 @@ strong {
 .Playlist__info__right {
     display: flex;
     gap: 10px;
+    margin-left: auto;
 }
 
 .Playlist__info__right div {
@@ -440,23 +446,46 @@ strong {
     margin: 0;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.Playlist__info:hover .Playlist__unfold {
-    background: #333;
-}
-
-.Playlist__info__right div:hover {
+.Playlist__info__right .hover {
     background: #333;
     transition: 0.1s ease-out;
+}
+
+.Playlist__unfold.folded img {
+    transform: rotate(90deg);
+    transition: 0.1s ease-out;
+}
+
+.Playlist__song__text.plating {
+    color: var(--primary-color);
+}
+
+
+.playlist-container-header {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    padding: 10px;
+    background: #222;
+    border-bottom: 1px solid #2C2C2C;
+    align-items: center;
+}
+
+.playlist-container-header-add {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 50%;
+
+}
+
+.playlist-container-header-add:hover {
+    transition: 0.1s ease-in;
+    background: #333;
+    cursor: pointer;
+}
+
+.playlist-container-header-add img {
+    height: 15px;
+    filter: invert(1);
 }

@@ -19,7 +19,6 @@ export default class post {
             })
                 .then(response => response.text())
                 .then(data => {
-                    console.log(data);
                 })
                 .catch(error => {
                     console.error("Error al subir el archivo:", error);
