@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("upload-form");
     
     form.addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent the default form submission
+        // El preventDefault serveix perquè el form no redireccioni a la pàgina PHP 
+        event.preventDefault();
         
         const formData = new FormData(form);
         
@@ -16,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .then(response => response.text())
         .then(data => {
-            // Handle the response here, you can display a message or perform other actions
             console.log(data);
         })
         .catch(error => {
