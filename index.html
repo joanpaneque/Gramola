@@ -1,32 +1,71 @@
 <!DOCTYPE html>
 <html lang="ca">
+
 <head>
     <meta charset="UTF-8">
     <title>La gramola</title>
     <script src="js/app.js" type="module"></script>
     <link rel="stylesheet" href="css/testing.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
-
-    <form id="upload-form" action="php/upload.php" method="post" enctype="multipart/form-data" target="upload-target">
-        <input type="file" name="song" id="file-input">
-        <input type="file" name="cover" id="cover-input">
-        <input type="submit" value="Upload File">
+    <img src="assets/images/background.png" class="background">
+    <form class="modal" id="upload-form" action="php/upload.php" method="post" enctype="multipart/form-data">
+        <div class="text-input">
+            <input type="text" maxlength="20" name="songname" placeholder="Títol de la cançó" id="songname-input">
+            <div class="output" id="songname-output"></div>
+        </div>
+        <div class="text-input">
+            <input type="text" name="artistname" placeholder="Artista" id="artistname-input">
+            <div class="output" id="artistname-output"></div>
+        </div>
+        <div class="file">
+            <div class="title">Cançó (mp3)</div>
+            <input type="file" name="song" id="song-input" accept="audio/mpeg">
+        </div>
+        <div class="file">
+            <div class="title">Portada (png)</div>
+            <input type="file" name="cover" id="cover-input" accept="image/png">
+        </div>
+        <input type="hidden" name="type" value="song">
+        <input disabled type="submit" id="song-submit" value="Pujar cançó">
     </form>
-    <iframe name="upload-target" style="display:none;"></iframe>
 
-    <div class="playlist-container">
-        <div class="playlist-container-header">
-            <div class="playlist-container-header-name">Biblioteca</div>
-            <div class="playlist-container-header-add"><img src="assets\img\svg\plus.svg"></div>
+    <form class="modal" id="upload-form" action="php/upload.php" method="post">
+        <div class="text-input">
+            <input type="text" maxlength="20" name="playlistname" placeholder="Nom de la playlist"
+                id="playlistname-input">
+            <div class="output" id="playlistname-output"></div>
         </div>
-        <div class="playlists" id="playlists">
-        
-        </div>
+        <input type="hidden" value="[]" name="">
+        <input disabled id="playlist-submit" type="submit" value="Crear playlist">
+    </form>
+
+    <div class="disc-container" id="disc-container">
+        <img id="disc" src="assets/images/7tXx2NMCseoW6KcsgH1Z.png">
     </div>
 
-    <form>
+    <div class="dynamic-content" id="dynamic-content">
+        <div class="playlist-container">
+            <div class="playlist-container-header">
+                <div class="playlist-container-header-name">Llistes</div>
+                <div class="playlist-container-header-add"><img src="assets\images\svg\plus.svg"></div>
+            </div>
+            <div class="playlists" id="playlists">
 
-    </form>
+            </div>
+        </div>
+        <div class="options-container">
+            <div class="playlist-container-header">
+                <div class="playlist-container-header-name">Cançons</div>
+                <div class="playlist-container-header-add"><img src="assets\images\svg\plus.svg"></div>
+            </div>
+            <div id="totesCançons" class="totesCançons">
+
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>

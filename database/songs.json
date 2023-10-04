@@ -1,86 +1,80 @@
 [
     {
-        "title": "Viva la vida",
-        "artist": "Coldplay",
-        "url": "assets\\audio\\Coldplay - Viva La Vida.mp3",
-        "cover": "assets\\img\\Coldplay - Viva La Vida.png"
-    },
-    {
-        "title": "Dance the night",
-        "artist": "Dua Lipa",
-        "url": "assets\\audio\\Dua Lipa - Dance The Night.mp3",
-        "cover": "assets\\img\\Dua Lipa - Dance The Night.png"
-    },
-    {
-        "title": "Shape of you",
-        "artist": "Ed Sheeran",
-        "url": "assets\\audio\\Ed Sheeran - Shape Of You.mp3",
-        "cover": "assets\\img\\Ed Sheeran - Shape Of You.png"
-    },
-    {
         "title": "Physical",
         "artist": "Erik Frank",
-        "url": "assets\\audio\\Erik Frank - Physical.mp3",
-        "cover": "assets\\img\\Erik Frank - Physical.png"
+        "url": "assets\\audio\\YTdyMtWxrjtPEeq7RCMu.mp3",
+        "cover": "assets\\images\\7tXx2NMCseoW6KcsgH1Z.png"
     },
     {
-        "title": "Now we are free",
+        "title": "Now We Are Free",
         "artist": "Hans Zimmer",
-        "url": "assets\\audio\\Hans Zimmer - Now We Are Free.mp3",
-        "cover": "assets\\img\\Hans Zimmer - Now We Are Free.png"
+        "url": "assets\\audio\\A8Og0jelN7ObQZexQQmf.mp3",
+        "cover": "assets\\images\\5aDyCiMBibCPRtkMo1KW.png"
     },
     {
         "title": "Hurt Me",
         "artist": "Jake Hope",
-        "url": "assets\\audio\\Jake Hope - Hurt Me.mp3",
-        "cover": "assets\\img\\Jake Hope - Hurt Me.png"
+        "url": "assets\\audio\\LlU97ZGHIGymeRqvdOPF.mp3",
+        "cover": "assets\\images\\jgp3CBItCRPIhBm01s6p.png"
     },
     {
         "title": "Sorry",
         "artist": "Justin Bieber",
-        "url": "assets\\audio\\Justin Bieber - Sorry.mp3",
-        "cover": "assets\\img\\Justin Bieber - Sorry.png"
+        "url": "assets\\audio\\6yRohFnk4IhtFFvHKphZ.mp3",
+        "cover": "assets\\images\\0RxPzg2oNGzU6ph4Mo98.png"
     },
     {
         "title": "Roar",
         "artist": "Katy Perry",
-        "url": "assets\\audio\\Katy Perry - Roar.mp3",
-        "cover": "assets\\img\\Katy Perry - Roar.png"
+        "url": "assets\\audio\\Mbn6h5i5EUip9eT9WhDC.mp3",
+        "cover": "assets\\images\\mK8NjUcTy6Hazb84uTp4.png"
     },
     {
         "title": "Uptown Funk",
         "artist": "Mark Ronson",
-        "url": "assets\\audio\\Mark Ronson - Uptown Funk.mp3",
-        "cover": "assets\\img\\Mark Ronson - Uptown Funk.png"
+        "url": "assets\\audio\\j3IOuAtZgDAIMaw1wLqU.mp3",
+        "cover": "assets\\images\\YhmaUxPZwlAIEHtYDTSk.png"
     },
     {
         "title": "Sugar",
         "artist": "Maroon 5",
-        "url": "assets\\audio\\Maroon 5 - Sugar.mp3",
-        "cover": "assets\\img\\Maroon 5 - Sugar.png"
-    },
-    {
-        "title": "Counting Stars",
-        "artist": "OneRepublic",
-        "url": "assets\\audio\\OneRepublic - Counting Stars.mp3",
-        "cover": "assets\\img\\OneRepublic - Counting Stars.png"
-    },
-    {
-        "title": "On My Love",
-        "artist": "Zara Larsson",
-        "url": "assets\\audio\\Zara Larsson, David Guetta - On My Love.mp3",
-        "cover": "assets\\img\\Zara Larsson, David Guetta - On My Love.png"
-    },
-    {
-        "title": "All We Never Knew",
-        "artist": "The Head And The Heart",
-        "url": "assets\\audio\\The Head And The Heart - All We Never Knew.mp3",
-        "cover": "assets\\img\\The Head And The Heart - All We Never Knew.png"
+        "url": "assets\\audio\\RhdFwDFT2aWtBJAPxjfj.mp3",
+        "cover": "assets\\images\\yWnPCXaEmCIZTSqwCyjV.png"
     },
     {
         "title": "Bumpy Ride",
         "artist": "Mohombi",
-        "url": "assets\\audio\\Mohombi - Bumpy Ride.mp3",
-        "cover": "assets\\img\\Mohombi - Bumpy Ride.jpg"
+        "url": "assets\\audio\\bC2peYq2JtG20hDXNmXf.mp3",
+        "cover": "assets\\images\\VDPakDnadwUAubRAatUP.png"
+    },
+    {
+        "title": "Counting Stars",
+        "artist": "One Republic",
+        "url": "assets\\audio\\XWm4QXyjupdeZGZSDUhB.mp3",
+        "cover": "assets\\images\\m9Ly59R09oVvObpW1BIx.png"
+    },
+    {
+        "title": "All We Never Knew",
+        "artist": "The Head And The Heart",
+        "url": "assets\\audio\\5OceDCAm2yL3wJMzbie4.mp3",
+        "cover": "assets\\images\\E0Zlj6vlgXFBM6nKvBok.png"
+    },
+    {
+        "title": "On My Love",
+        "artist": "Zara Larsson, David Guetta",
+        "url": "assets\\audio\\Bc6e6Sx1NyslWfQRhgY3.mp3",
+        "cover": "assets\\images\\FUb1cMGbLWwS7pBsTq8S.png"
+    },
+    {
+        "title": "Don't Stop Me Now",
+        "artist": "Queen",
+        "url": "assets\\audio\\u1orIMpYYlHEbQj7qMh0.mp3",
+        "cover": "assets\\images\\IFeo46aBd6eMPpz6MyvC.png"
+    },
+    {
+        "title": "I Want To Break Free",
+        "artist": "Queen",
+        "url": "assets\\audio\\LVA1TeToQO6DPx4Jj2Ye.mp3",
+        "cover": "assets\\images\\WHeghAzsIWO95PAE0uy6.png"
     }
 ]

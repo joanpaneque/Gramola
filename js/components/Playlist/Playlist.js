@@ -4,23 +4,30 @@ import { songs, audioPlayer } from "../../app.js";
 export default class Playlist extends Component {
     constructor(playlist) {
         super();
+        this.playlist = playlist;
+        
+        // En cas de que sigui una playlist amb totes les cançons que existeixen
+        if (this.playlist.songs == -1) {
+            this.playlist.songs = songs.map((dummy, index) => index);
+        }
+
         this.container.classList.add("Playlist__playlist");
         this.HTML = `
             <div class="Playlist__info">
-                <img src="assets\\img\\svg\\playlist.svg">
-                <div class="Playlist__name">${playlist.name}</div>
+                <img src="assets\\images\\svg\\playlist.svg">
+                <div class="Playlist__name">${this.playlist.name}</div>
                 <div class="Playlist__info__right">
-                    <div class="Playlist__play"><img src="assets\\img\\svg\\play.svg"></div>
-                    <div class="Playlist__unfold"><img src="assets\\img\\svg\\arrow-right.svg"></div>
+                    <div class="Playlist__play"><img src="assets\\images\\svg\\play.svg"></div>
+                    <div class="Playlist__unfold"><img src="assets\\images\\svg\\arrow-right.svg"></div>
                 </div>
             </div>
             <div class="Playlist__songs">
-                ${playlist.songs.map(song => `
+                ${this.playlist.songs.map(song => `
                     <div class="Playlist__song" song-id="${song}">
                         <div class="Playlist__song__cover__container">
                             <div class="Playlist__song__cover__overlay">
-                                <img src="assets\\img\\svg\\play.svg" class="Playlist__song__cover__overlay__play">
-                                <img src="assets\\img\\svg\\pause.svg" class="Playlist__song__cover__overlay__pause">
+                                <img src="assets\\images\\svg\\play.svg" class="Playlist__song__cover__overlay__play">
+                                <img src="assets\\images\\svg\\pause.svg" class="Playlist__song__cover__overlay__pause">
                             </div>
                             <img src="${songs[song].cover}" alt="${songs[song].title}" class="Playlist__song__cover__floating">
                         </div>
@@ -64,12 +71,12 @@ export default class Playlist extends Component {
             const img = this.playButton.querySelector("img");
             if (img.src.includes("play.svg")) {
                 document.querySelectorAll(".Playlist__play").forEach(icon => {
-                    icon.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
+                    icon.innerHTML = `<img src="assets\\images\\svg\\play.svg">`;
                 })
-                this.playButton.innerHTML = `<img src="assets\\img\\svg\\pause.svg">`;
+                this.playButton.innerHTML = `<img src="assets\\images\\svg\\pause.svg">`;
                 audioPlayer.play(playlist);
             } else {
-                this.playButton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
+                this.playButton.innerHTML = `<img src="assets\\images\\svg\\play.svg">`;
                 // this.playlistName.style.color = "#fff";
             }
 
@@ -200,9 +207,10 @@ export default class Playlist extends Component {
             song.addEventListener("mouseenter", () => {
                 cR = this.container.getBoundingClientRect();
                 iR = song.querySelector(".Playlist__song__text").getBoundingClientRect();
-                cW = cR.width - iR.left - cR.left;
-                iW = iR.width;
+                cW = cR.width;
+                iW = iR.width + 40;
                 mouseOver = true;
+
 
                 if (cW < iW) {
                     text2.style.visibility = "visible";

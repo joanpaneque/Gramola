@@ -8,24 +8,20 @@ body {
     background: #111;
     margin: 0;
     color: red;
+    overflow-x: hidden;
 }
 
 .playlists {
-    height: 328px;
     border-bottom: 1px solid #2C2C2C;
-    width: 250px;
 }
 
-.playlist-container {
-    width: 250px;
-}
+
 
 .Playlist__playlist {
     background: #333;
     user-select: none;
     overflow: hidden;
     transition: 1s;
-    width: 250px;
 }
 
 .Playlist__info {
@@ -155,7 +151,7 @@ body {
     display: flex;
     gap: 10px;
     overflow: hidden;
-    width: fit-content;
+    width: 100%;
 }
 
 .Playlist__song__text {
@@ -167,7 +163,6 @@ body {
 }
 
 .playlists {
-    width: fit-content;
     /* height: 500px; */
     overflow-y: scroll;
     background: #555;
@@ -275,7 +270,6 @@ body {
 .AudioPlayer {
     background: #222;
     padding: 30px;
-    width: fit-content;
     display: flex;
     gap: 10px;
     align-items: center;
@@ -286,6 +280,7 @@ body {
     width: 100px;
     height: fit-content;
     max-height: 122px;
+    margin-right: 15px;
 }
 
 .art-box img {
@@ -300,10 +295,6 @@ body {
     height: 108px;
 }
 
-.AudioPlayer__player {
-    width: 700px;
-    margin-left: 15px;
-}
 
 
 .AudioPlayer__progressbar__container {
@@ -488,4 +479,234 @@ strong {
 .playlist-container-header-add img {
     height: 15px;
     filter: invert(1);
+}
+
+    .modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        background: #000;
+        padding: 50px;
+        z-index: 1;
+        border-radius: 10px;
+        pointer-events: none;
+        width: 600px
+    }
+
+    .modal.open {
+        pointer-events: all;
+        top: 50%;
+        animation: showModal 0.2s ease forwards;
+    }
+
+    @keyframes hideModal {
+        0% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+    }
+
+    @keyframes showModal {
+        0% {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+.modal input[type="text"] {
+    background: none;
+    border: none;
+    border-bottom: 1px solid #999;
+    color: #999;
+    font-size: 1.2em;
+    padding: 10px;
+    display: block;
+}
+
+.modal .text-input {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.modal .text-input:not(:last-child) {
+    margin-bottom: 15px;
+}
+
+.modal input[type="text"]:focus {
+    outline: none;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    transition: 0.2s ease;
+}
+
+.modal .output {
+    font-size: 1.2em;
+}
+
+.modal input[type="file"] {
+    color: #fff;
+    border-radius: 5px;
+    display: block;
+    font-size: 1.2em;
+}
+
+.file {
+    margin-top: 20px;
+}
+.file .title {
+    margin-bottom: 10px;
+    color: #888;
+    font-size: 1.2em;
+}
+
+.modal input[type="submit"] {
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+    border: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.modal input[type="submit"][disabled] {
+    background: none;
+    border: 1px solid #777;
+    color: #777;
+    cursor: not-allowed;
+}
+
+img.background {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    max-width: 1700px;
+    width: 100%;
+    transform: translateX(-50%);
+    z-index: 0;
+    filter: saturate(0) brightness(1.5);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.AudioPlayer {
+    position: absolute;
+    left: calc(50% + 5px);
+    transform: translateX(-50%);
+    top: 720px;
+    width: 845px;
+}
+
+.dynamic-content {
+    width: 852px;
+    background: #222;
+    padding: 25px;
+    padding-top: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 1700px) {
+    .AudioPlayer {
+        width: 50%;
+        display: grid;
+        /* first column takes 1/4 of 100% width, second takes 3/4 */
+        grid-template-columns: 20% 130%;
+    }
+
+    .dynamic-content {
+        width: 50%;
+    }
+
+    .AudioPlayer__player {
+        width: 60%;
+    }
+
+    .AudioPlayer__info {
+    }
+
+    .AudioPlayer__progressbar__container {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1080px) {
+    .AudioPlayer__info {
+        display: none;
+    }
+
+    .AudioPlayer {
+        display: block;
+    }
+
+    .AudioPlayer__player {
+        width: auto;
+    }
+}
+
+.disc-container {
+    background: #666;
+    border-radius: 50%;
+}
+
+.disc-container img {
+    border-radius: 50%;
+    height: 800px;
+}
+
+@keyframes girar {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.disc-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.dynamic-content {
+    display: flex;
+    border-top: 1px solid #2C2C2C;
+    overflow: hidden;
+}
+
+.playlist-container{
+    width: 50%;
+    height: 100%;
+}
+
+.options-container {
+    width: 50%;
+}
+
+.option {
+    height: 35px;
+    padding: 10px;
+
+}
+
+.playlists {
+    height: 100%;
 }

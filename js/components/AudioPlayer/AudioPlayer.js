@@ -1,3 +1,4 @@
+import { positionElements } from "../../app.js";
 import Component from "../Component.js";
 
 export default class AudioPlayer extends Component {
@@ -5,15 +6,17 @@ export default class AudioPlayer extends Component {
         super();
         this.songs = songs;
         this.playing = false;
-        this.songId = null;
+        this.songId = 0;
         this.cache = {};
         this.loadSongs();
+        this.loaded = false;
+
 
         this.html = `
             <div class="AudioPlayer">
                 <div class="AudioPlayer__info">
                     <div class="art-box">
-                        <img src="assets\\img\\no-image.png">
+                        <img src="assets\\images\\no-image.png">
                     </div>
                 </div>
                 <div class="AudioPlayer__player disabled">
@@ -21,16 +24,16 @@ export default class AudioPlayer extends Component {
                     <div class="AudioPlayer__progressbar__container">
                         <div class="AudioPlayer__progressbar">
                             <div class="AudioPlayer__progressbar__progress"></div>
-                            <div class="AudioPlayer__progressbar__thumb"></div>
+                            <!--<div class="AudioPlayer__progressbar__thumb"></div>-->
                         </div>
                     </div>
                     <div class="controls-box">
                         <div class="AudioPlayer__time">--:-- / --:--</div>
                         <div class="AudioPlayer__buttons">
-                            <div class="AudioPlayer__backwardsbutton"><img src="assets\\img\\svg\\rewind.svg"></div>
-                            <div class="AudioPlayer__playbutton"><img src="assets\\img\\svg\\play.svg"></div>
-                            <div class="AudioPlayer__stopbutton"><img src="assets\\img\\svg\\stop.svg"></div>
-                            <div class="AudioPlayer__forwardbutton"><img src="assets\\img\\svg\\forward.svg"></div>
+                            <div class="AudioPlayer__backwardsbutton"><img src="assets\\images\\svg\\rewind.svg"></div>
+                            <div class="AudioPlayer__playbutton"><img src="assets\\images\\svg\\play.svg"></div>
+                            <div class="AudioPlayer__stopbutton"><img src="assets\\images\\svg\\stop.svg"></div>
+                            <div class="AudioPlayer__forwardbutton"><img src="assets\\images\\svg\\forward.svg"></div>
                         </div>
                     <div>
                 </div>
@@ -38,6 +41,12 @@ export default class AudioPlayer extends Component {
         `;
 
         this.reloadConstructor();
+
+
+        setTimeout(() => {
+            this.play();
+            this.pause();
+        });
     }
 
     positionThumb = (x, update = true) => {
@@ -45,7 +54,7 @@ export default class AudioPlayer extends Component {
         this.barX = x - progressbarRect.left;
         if (this.barX < 0) this.barX = 0;
         if (this.barX > progressbarRect.width) this.barX = progressbarRect.width;
-        this.progressbarThumb.style.left = `${progressbarRect.left + this.barX}px`;
+        // this.progressbarThumb.style.left = `${progressbarRect.left + this.barX}px`;
         this.progressbarProgress.style.width = `${this.barX}px`;
 
         if (update) {
@@ -69,14 +78,16 @@ export default class AudioPlayer extends Component {
 
             this.cache[idx].addEventListener("ended", () => {
                 if (this.mouseDown) return;
-                this.positionThumb(0);
-                this.playing = false;
-                this.songId = null;
-                this.clearMediaSessionMetadata();
-                this.stopAllSongs();
+                this.stop();
+
+                // this.positionThumb(0);
+                // this.playing = false;
+                // this.songId = null;
+                // this.clearMediaSessionMetadata();
+                // this.stopAllSongs();
                 
-                this.reloadConstructor();
-                this.time.innerHTML = "--:-- / --:--"
+                // this.reloadConstructor();
+                // this.time.innerHTML = "--:-- / --:--"
             });
         });
     }
@@ -100,8 +111,10 @@ export default class AudioPlayer extends Component {
         document.title = `${this.songs[this.songId].artist} - ${this.songs[this.songId].title}`;
         this.setMediaSessionMetadata(this.songs[this.songId]);
         this.playing = true;
-        this.cache[this.songId].play();
-        this.playbutton.innerHTML = `<img src="assets\\img\\svg\\pause.svg">`;
+        if (this.loaded) {
+            this.cache[this.songId].play();
+        }
+        this.playbutton.innerHTML = `<img src="assets\\images\\svg\\pause.svg">`;
         this.infoText.innerHTML = `
             <div class="status-box__child">${play_icon}Reproduint <strong>${this.songs[this.songId].title} - ${this.songs[this.songId].artist}</strong>${play_icon}</div>
             <div class="status-box__child">${play_icon}Reproduint <strong>${this.songs[this.songId].title} - ${this.songs[this.songId].artist}</strong>${play_icon}</div>
@@ -123,6 +136,8 @@ export default class AudioPlayer extends Component {
         this.text2left = cR.width - tR.width;
         const speed = 0.5;
 
+        let oldSongId = this.songId;
+
         let animate = () => {
             this.text1left -= speed;
             this.text2left -= speed;
@@ -136,38 +151,50 @@ export default class AudioPlayer extends Component {
                 this.text1left = 0;
                 this.text2left = cR.width - tR.width;
             }
-
-            if (this.playing) requestAnimationFrame(animate);
+            if (this.playing && this.songId == oldSongId) requestAnimationFrame(animate);
         }
         requestAnimationFrame(animate);
 
         this.infoCover.innerHTML = `
             <img src="${this.songs[this.songId].cover}">
         `;
+
+        this.discImage.src = this.songs[this.songId].cover;
+        this.discImage.style.animation = "girar 8s linear infinite";
+        this.animationStarted = new Date().getTime();
+        
+        positionElements(true);
+        this.loaded = true;
     }
 
     stop() {
         if (this.songId === null) return false;
         document.title = "Gramola";
         this.playing = false;
-        this.cache[this.songId].pause();
+        this.pause();
         this.cache[this.songId].currentTime = 0;
         this.clearMediaSessionMetadata();
-        this.playbutton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
-        this.reloadConstructor();
-        this.stopAllSongs();
-        
+        this.discImage.style.animation = "";
 
+        // Position the progressbar thumb at the beginning
+        this.positionThumb(0);
+        // this.discImage.src = "#";
+        positionElements(true);
+        // this.reloadConstructor();
+        // this.stopAllSongs();
     }
 
     pause() {
         if (this.songId === null) return false;
         this.playing = false;
         this.cache[this.songId].pause();
-        this.playbutton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
+        this.playbutton.innerHTML = `<img src="assets\\images\\svg\\play.svg">`;
         document.querySelectorAll(".music-icon").forEach(icon => {
             icon.classList.add("hidden");
         });
+        this.discImage.style.animation = "";
+        this.discImage.style.transform = `rotate(${(new Date().getTime() - this.animationStarted) / 1000 / 8 * 360}deg)`
+
     }
 
     getCurrentTime() {
@@ -177,7 +204,13 @@ export default class AudioPlayer extends Component {
 
     setCurrentTime(time) {
         if (this.songId === null) return false;
-        this.cache[this.songId].currentTime = time;
+
+        // Comprovar si la cançó està carregada
+        if (this.cache[this.songId].readyState === 0) {
+            return false;
+        } else {
+            this.cache[this.songId].currentTime = time;
+        }
     }
 
     getDuration() {
@@ -205,7 +238,7 @@ export default class AudioPlayer extends Component {
 
     stopAllSongs() {
         this.player.classList.add("disabled");
-        this.playbutton.innerHTML = `<img src="assets\\img\\svg\\play.svg">`;
+        this.playbutton.innerHTML = `<img src="assets\\images\\svg\\play.svg">`;
         const playButtons = document.querySelectorAll(".Playlist__song__cover__overlay__play");
         const pauseButtons = document.querySelectorAll(".Playlist__song__cover__overlay__pause");
 
@@ -227,7 +260,7 @@ export default class AudioPlayer extends Component {
         this.player = this.container.querySelector(".AudioPlayer__player");
         this.progressbar = this.container.querySelector(".AudioPlayer__progressbar");
         this.progressbarProgress = this.container.querySelector(".AudioPlayer__progressbar__progress");
-        this.progressbarThumb = this.container.querySelector(".AudioPlayer__progressbar__thumb");
+        // this.progressbarThumb = this.container.querySelector(".AudioPlayer__progressbar__thumb");
         this.mouseDown = false;
         this.progressbar.addEventListener("click", e => this.positionThumb(e.clientX));
         this.progressbar.addEventListener("mousedown", e => {
@@ -265,6 +298,8 @@ export default class AudioPlayer extends Component {
 
         this.infoText = this.container.querySelector(".status-box");
         this.infoCover = this.container.querySelector(".art-box");
+
+        this.discImage = document.getElementById("disc");
     }
 }
 
