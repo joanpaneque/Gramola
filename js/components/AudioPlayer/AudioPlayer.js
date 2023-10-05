@@ -34,6 +34,7 @@ export default class AudioPlayer extends Component {
                             <div class="AudioPlayer__playbutton"><img src="assets\\images\\svg\\play.svg"></div>
                             <div class="AudioPlayer__stopbutton"><img src="assets\\images\\svg\\stop.svg"></div>
                             <div class="AudioPlayer__forwardbutton"><img src="assets\\images\\svg\\forward.svg"></div>
+                            <div class="AudioPlayer__randombutton"><img src="assets\\images\\svg\\random.svg"></div>
                         </div>
                     <div>
                 </div>
@@ -95,15 +96,36 @@ export default class AudioPlayer extends Component {
 
 
 
-    play() {
+    play(playlist) {
+        if (playlist) {
+            this.playlist = playlist;
+            if (!this.playing) {
+                if (this.random) {
+                    if (this.playlist.songs.length > 1) {
+                        let oldSongId = this.songId;
+                        let playlistSongsIds = this.playlist.songs;
+                        do {
+                            this.songId = playlistSongsIds[Math.floor(Math.random() * playlistSongsIds.length)];
+                        }
+                        while (this.songId == oldSongId);
+                    }
+                }
+            }
+        }
 
-        // this.songId = playlist.songs[0];
-        // document.querySelectorAll(`[song-id]`).forEach(song => {
-        //     song.classList.remove("primary-color");
-        // });
-        // document.querySelectorAll(`[song-id="${this.songId}"`).forEach(song => {
-        //     song.classList.add("primary-color");
-        // });
+        const allSongs = document.querySelectorAll(`[song-id]`);
+        allSongs.forEach(song => {
+            song.querySelectorAll(".Playlist__song__text").forEach(text => text.classList.remove("playing"));
+            if (song.getAttribute("song-id") == this.songId) {
+                console.log(song.querySelectorAll(".Playlist__song__text"));
+                song.querySelectorAll(".Playlist__song__text").forEach(text => text.classList.add("playing"));
+                
+                // Set the playbutton to pause
+                song.querySelector(".Playlist__song__cover__overlay__play").style.display = "none";
+                song.querySelector(".Playlist__song__cover__overlay__pause").style.display = "block";
+            }
+        });
+
         let play_icon = `<div class="music-icon"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>`;
         this.player.classList.remove("disabled");
 
@@ -178,6 +200,8 @@ export default class AudioPlayer extends Component {
 
         // Position the progressbar thumb at the beginning
         this.positionThumb(0);
+        
+        this.time.innerHTML = `00:00 / ${secondsToMMSS(this.getDuration())}`;
         // this.discImage.src = "#";
         positionElements(true);
         // this.reloadConstructor();
@@ -254,6 +278,10 @@ export default class AudioPlayer extends Component {
     reloadConstructor() {
         this.container.innerHTML = this.html;
 
+        this.random = false;
+
+        this.playlist;
+
         this.text1left;
         this.text2left;
         this.time = this.container.querySelector(".AudioPlayer__time");
@@ -298,11 +326,48 @@ export default class AudioPlayer extends Component {
 
         this.infoText = this.container.querySelector(".status-box");
         this.infoCover = this.container.querySelector(".art-box");
-
         this.discImage = document.getElementById("disc");
+        this.randomButton = this.container.querySelector(".AudioPlayer__randombutton");
+
+        this.randomButton.addEventListener("click", () => {
+            this.random = !this.random;
+
+            this.randomButton.classList.toggle("active");
+        });
+
+        this.nextButton = this.container.querySelector(".AudioPlayer__forwardbutton");
+        this.backwardsbutton = this.container.querySelector(".AudioPlayer__backwardsbutton");
+
+        this.nextButton.addEventListener("click", () => {
+            if (this.random) {
+                if (this.playlist) {
+                    let oldSongId = this.songId;
+                    do {
+                        this.songId = this.playlist.songs[Math.floor(Math.random() * this.playlist.songs.length)];
+                    } while (this.songId == oldSongId);
+                } else {
+                    this.songId = Math.floor(Math.random() * this.songs.length);
+                }
+                this.stop();
+                this.play();
+            } else {
+                console.log(this.playlist);
+                if (this.playlist) {
+                    // Si estem a la ultima cançó de la playlist, no fer res
+                    if (this.playlist.songs.indexOf(this.songId) == this.playlist.songs.length - 1) return;
+                    // Si no, reproduir la següent cançó
+                    this.songId = this.playlist.songs[this.playlist.songs.indexOf(this.songId) + 1];
+                    this.stop();
+                    this.play();
+                    // Si estem a la ultima cançó de la llista de cançons fer console.log ultima cançó
+                    if (this.playlist.songs.indexOf(this.songId) == this.playlist.songs.length - 1) {
+                        console.log("Ultima cançó");
+                    }
+                }
+            }
+        });
     }
 }
-
 
 function secondsToMMSS(seconds) {
     var minutes = Math.floor(seconds / 60);

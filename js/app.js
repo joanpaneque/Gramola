@@ -36,9 +36,6 @@ const totesCançons = document.getElementById("totesCançons");
 let PL = new Playlist({name: "Cançons", songs: -1});
 totesCançons.appendChild(PL.container);
 
-
-
-
 const form = document.getElementById("upload-form");
 const songNameInput = document.getElementById("songname-input");
 const songNameOutput = document.getElementById("songname-output")
@@ -152,8 +149,6 @@ window.addEventListener("resize", positionElements);
 positionElements(true);
 
 export function positionElements(redo) {
-
-
     const backgroundImage = document.querySelector("img.background");
     const aPlayer = document.querySelector(".AudioPlayer");
     const pContainer = document.querySelector("#dynamic-content");
@@ -183,3 +178,11 @@ export function positionElements(redo) {
         positionElements();
     }
 }
+
+const songAddButton = document.getElementById("song-add");
+
+songAddButton.addEventListener("click", () => {
+    const songModal = document.getElementById("upload-song");
+
+    songModal.classList.toggle("open");
+})

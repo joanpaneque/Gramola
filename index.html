@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <title>La gramola</title>
     <script src="js/app.js" type="module"></script>
-    <link rel="stylesheet" href="css/testing.css">
+    <link rel="stylesheet" href="css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
     <img src="assets/images/background.png" class="background">
-    <form class="modal" id="upload-form" action="php/upload.php" method="post" enctype="multipart/form-data">
+    <form class="modal" id="upload-song" action="php/upload.php" method="post" enctype="multipart/form-data">
         <div class="text-input">
             <input type="text" maxlength="20" name="songname" placeholder="Títol de la cançó" id="songname-input">
             <div class="output" id="songname-output"></div>
@@ -59,7 +59,7 @@
         <div class="options-container">
             <div class="playlist-container-header">
                 <div class="playlist-container-header-name">Cançons</div>
-                <div class="playlist-container-header-add"><img src="assets\images\svg\plus.svg"></div>
+                <div id="song-add" class="playlist-container-header-add"><img src="assets\images\svg\plus.svg"></div>
             </div>
             <div id="totesCançons" class="totesCançons">
 

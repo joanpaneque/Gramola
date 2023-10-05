@@ -1,10 +1,13 @@
 import Component from "../Component.js";
 import { songs, audioPlayer } from "../../app.js";
 
+var id = 0;
+
 export default class Playlist extends Component {
     constructor(playlist) {
         super();
         this.playlist = playlist;
+        this.playlist.id = id++;
         
         // En cas de que sigui una playlist amb totes les cançons que existeixen
         if (this.playlist.songs == -1) {
@@ -23,7 +26,7 @@ export default class Playlist extends Component {
             </div>
             <div class="Playlist__songs">
                 ${this.playlist.songs.map(song => `
-                    <div class="Playlist__song" song-id="${song}">
+                    <div class="Playlist__song" song-id="${song}" playlist-id="${this.id}">
                         <div class="Playlist__song__cover__container">
                             <div class="Playlist__song__cover__overlay">
                                 <img src="assets\\images\\svg\\play.svg" class="Playlist__song__cover__overlay__play">
@@ -59,14 +62,9 @@ export default class Playlist extends Component {
             this.unfoldButton.classList.remove("hover");
         });
 
+        // Quan una playlist es reprodueix
         this.playButton.addEventListener("click", e => {
-            document.querySelectorAll(".Playlist__name").forEach(element => {
-                // element.style.color = "#fff";
-            });
-
-            const root = document.documentElement;
-            const primary_color = getComputedStyle(root).getPropertyValue("--primary-color");
-            this.playlistName.style.color = primary_color;
+            this.colorCurrentPlaylist();
 
             const img = this.playButton.querySelector("img");
             if (img.src.includes("play.svg")) {
@@ -77,10 +75,10 @@ export default class Playlist extends Component {
                 audioPlayer.play(playlist);
             } else {
                 this.playButton.innerHTML = `<img src="assets\\images\\svg\\play.svg">`;
+                audioPlayer.pause();
+
                 // this.playlistName.style.color = "#fff";
             }
-
-
 
             e.stopPropagation();
         });
@@ -219,7 +217,7 @@ export default class Playlist extends Component {
                 const rect = song.getBoundingClientRect();
                 let floatingCover = document.createElement("div");
                 floatingCover.innerHTML = `
-                    <div class="Playlist__floatingCover" style="top: ${rect.top + window.scrollY}px; left: ${rect.left + rect.width + 15}px">
+                    <div class="Playlist__floatingCover" style="z-index: 4; top: ${rect.top + window.scrollY}px; left: ${rect.left + rect.width + 15}px">
                         <img src="${song.querySelector(".Playlist__song__cover__floating").src}">
                     </div>                
                 `;
@@ -249,6 +247,7 @@ export default class Playlist extends Component {
 
             song.addEventListener("click", () => {
                 let songId = song.getAttribute("song-id");
+                audioPlayer.playlist = this.playlist;
 
                 const playButtons = document.querySelectorAll(`.Playlist__song[song-id="${songId}"] .Playlist__song__cover__overlay__play`);
                 const pauseButtons = document.querySelectorAll(`.Playlist__song[song-id="${songId}"] .Playlist__song__cover__overlay__pause`);
@@ -278,11 +277,27 @@ export default class Playlist extends Component {
                 } else {
                     audioPlayer.songId = songId;
                     audioPlayer.playing = true;
-                    audioPlayer.play();
+
+                    this.colorCurrentPlaylist();
+
+                    let played = false;
+                    if (audioPlayer.playlist) {
+                        if (audioPlayer.playlist.id != this.playlist.id) {
+                            audioPlayer.play(this.playlist);
+                            played = true;
+                        }
+                    }
+
+                    if (!played) {
+                        audioPlayer.play();
+                    }
+
                     this.stopAllSongs();    
                     playButtons.forEach(button => button.style.display = "none");
                     pauseButtons.forEach(button => button.style.display = "block");
                 }
+
+                
             });
 
         });
@@ -299,5 +314,15 @@ export default class Playlist extends Component {
         pauseButtons.forEach(button => {
             button.style.display = "none";
         });
+    }
+
+    colorCurrentPlaylist() {
+        document.querySelectorAll(".Playlist__name").forEach(element => {
+            element.style.color = "#fff";
+        });
+
+        const root = document.documentElement;
+        const primary_color = getComputedStyle(root).getPropertyValue("--primary-color");
+        this.playlistName.style.color = primary_color;
     }
 }

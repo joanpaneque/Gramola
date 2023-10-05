@@ -76,5 +76,11 @@
         "artist": "Queen",
         "url": "assets\\audio\\LVA1TeToQO6DPx4Jj2Ye.mp3",
         "cover": "assets\\images\\WHeghAzsIWO95PAE0uy6.png"
+    },
+    {
+        "title": "Hola",
+        "artist": "asdsadf",
+        "url": "assets\\audio\\CPADIRsjSnEgI6oLcrOk.mp3",
+        "cover": "assets\\images\\1qU1owrcyO6UrytfUs9L.png"
     }
 ]
