@@ -32,13 +32,17 @@
         <input disabled type="submit" id="song-submit" value="Pujar cançó">
     </form>
 
-    <form class="modal" id="upload-form" action="php/upload.php" method="post">
+    <form class="modal" id="upload-playlist" action="php/upload.php" method="post">
         <div class="text-input">
             <input type="text" maxlength="20" name="playlistname" placeholder="Nom de la playlist"
                 id="playlistname-input">
             <div class="output" id="playlistname-output"></div>
         </div>
-        <input type="hidden" value="[]" name="">
+        <input type="hidden" name="type" value="playlist">
+        <input id="playlist-songs-array" type="hidden" name="playlistsongs" value="">
+        <div id="playlist-songs" class="songs">
+
+        </div>
         <input disabled id="playlist-submit" type="submit" value="Crear playlist">
     </form>
 
@@ -50,7 +54,7 @@
         <div class="playlist-container">
             <div class="playlist-container-header">
                 <div class="playlist-container-header-name">Llistes</div>
-                <div class="playlist-container-header-add"><img src="assets\images\svg\plus.svg"></div>
+                <div id="playlist-add" class="playlist-container-header-add"><img src="assets\images\svg\plus.svg"></div>
             </div>
             <div class="playlists" id="playlists">
 
@@ -66,6 +70,16 @@
             </div>
         </div>
     </div>
+
+    <form class="userform" id="userform" action="php/session.php" method="post">
+        <h1>Nom d'usuari: </h1>
+        <h3 id="username"></h3>
+        <input type="text" placeholder="Usuari" name="username" id="username">
+        <input type="submit" value="Entrar">
+
+        <a class="infotecnica" href="infotecnica.php">INFORMACIÓ TÈCNICA</a>
+    </form>
+
 </body>
 
 </html>

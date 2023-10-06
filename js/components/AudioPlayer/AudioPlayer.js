@@ -70,9 +70,7 @@ export default class AudioPlayer extends Component {
             this.cache[idx].addEventListener("timeupdate", () => {
                 if (!this.playing) return;
                 this.time.innerHTML = `${secondsToMMSS(this.getCurrentTime())} / ${secondsToMMSS(this.getDuration())}`;
-
                 const progressbarRect = this.progressbar.getBoundingClientRect();
-
                 this.positionThumb(progressbarRect.width * (this.getCurrentTime() / this.getDuration()) + progressbarRect.left, false);
 
             });
@@ -80,23 +78,28 @@ export default class AudioPlayer extends Component {
             this.cache[idx].addEventListener("ended", () => {
                 if (this.mouseDown) return;
                 this.stop();
-
-                // this.positionThumb(0);
-                // this.playing = false;
-                // this.songId = null;
-                // this.clearMediaSessionMetadata();
-                // this.stopAllSongs();
-                
-                // this.reloadConstructor();
-                // this.time.innerHTML = "--:-- / --:--"
             });
         });
     }
 
-
-
-
     play(playlist) {
+
+        if (this.playlist) {
+            var xhr = new XMLHttpRequest();
+            var url = "php/saveLastPlaylist.php";
+            var params = JSON.stringify({ playlistId: 0 });
+
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+            xhr.send(params);
+        }
+
         if (playlist) {
             this.playlist = playlist;
             if (!this.playing) {
@@ -195,6 +198,7 @@ export default class AudioPlayer extends Component {
         this.playing = false;
         this.pause();
         this.cache[this.songId].currentTime = 0;
+        this.cache[this.songId].pause();
         this.clearMediaSessionMetadata();
         this.discImage.style.animation = "";
 
@@ -333,12 +337,25 @@ export default class AudioPlayer extends Component {
             this.random = !this.random;
 
             this.randomButton.classList.toggle("active");
+
+            if (this.random) {
+                this.enableForward();
+            } else {
+                // Check if we are at the last song of the playlist
+                if (this.playlist.songs.indexOf(this.songId) == this.playlist.songs.length - 1) {
+                    this.disableForward();
+                }
+            }
         });
 
         this.nextButton = this.container.querySelector(".AudioPlayer__forwardbutton");
         this.backwardsbutton = this.container.querySelector(".AudioPlayer__backwardsbutton");
 
         this.nextButton.addEventListener("click", () => {
+
+            // Stop the current song
+            this.stop();
+    
             if (this.random) {
                 if (this.playlist) {
                     let oldSongId = this.songId;
@@ -354,18 +371,51 @@ export default class AudioPlayer extends Component {
                 console.log(this.playlist);
                 if (this.playlist) {
                     // Si estem a la ultima cançó de la playlist, no fer res
-                    if (this.playlist.songs.indexOf(this.songId) == this.playlist.songs.length - 1) return;
+                    if (this.playlist.songs.indexOf(this.songId) == this.playlist.songs.length - 1) return this.disableForward();
                     // Si no, reproduir la següent cançó
                     this.songId = this.playlist.songs[this.playlist.songs.indexOf(this.songId) + 1];
                     this.stop();
                     this.play();
                     // Si estem a la ultima cançó de la llista de cançons fer console.log ultima cançó
                     if (this.playlist.songs.indexOf(this.songId) == this.playlist.songs.length - 1) {
-                        console.log("Ultima cançó");
+                        this.disableForward();
                     }
                 }
             }
         });
+
+        this.backwardsbutton.addEventListener("click", () => {
+            // Stop the current song
+            if (this.playlist) {
+                console.log("hey");
+                console.log(this.songId);
+
+                if (this.playlist.songs[0] == this.playlist.songs[this.playlist.songs.indexOf(this.songId)]) return;
+                let previous = this.playlist.songs[this.playlist.songs.indexOf(this.songId) - 1]
+                if (previous == undefined) return;
+
+                this.songId = previous;
+                this.stop();
+                this.play();
+                this.enableForward();
+            }
+        });
+    }
+
+    
+
+    disableForward() {
+        const forwardButton = document.querySelector(".AudioPlayer__forwardbutton");
+        forwardButton.style.opacity = "0.5";
+        forwardButton.style.cursor = "default";
+        forwardButton.style.pointerEvents = "none";
+    }
+
+    enableForward() {
+        const forwardButton = document.querySelector(".AudioPlayer__forwardbutton");
+        forwardButton.style.opacity = "1";
+        forwardButton.style.cursor = "pointer";
+        forwardButton.style.pointerEvents = "all";
     }
 }
 

@@ -12,34 +12,10 @@
         "cover": "assets\\images\\5aDyCiMBibCPRtkMo1KW.png"
     },
     {
-        "title": "Hurt Me",
-        "artist": "Jake Hope",
-        "url": "assets\\audio\\LlU97ZGHIGymeRqvdOPF.mp3",
-        "cover": "assets\\images\\jgp3CBItCRPIhBm01s6p.png"
-    },
-    {
-        "title": "Sorry",
-        "artist": "Justin Bieber",
-        "url": "assets\\audio\\6yRohFnk4IhtFFvHKphZ.mp3",
-        "cover": "assets\\images\\0RxPzg2oNGzU6ph4Mo98.png"
-    },
-    {
-        "title": "Roar",
-        "artist": "Katy Perry",
-        "url": "assets\\audio\\Mbn6h5i5EUip9eT9WhDC.mp3",
-        "cover": "assets\\images\\mK8NjUcTy6Hazb84uTp4.png"
-    },
-    {
         "title": "Uptown Funk",
         "artist": "Mark Ronson",
         "url": "assets\\audio\\j3IOuAtZgDAIMaw1wLqU.mp3",
         "cover": "assets\\images\\YhmaUxPZwlAIEHtYDTSk.png"
-    },
-    {
-        "title": "Sugar",
-        "artist": "Maroon 5",
-        "url": "assets\\audio\\RhdFwDFT2aWtBJAPxjfj.mp3",
-        "cover": "assets\\images\\yWnPCXaEmCIZTSqwCyjV.png"
     },
     {
         "title": "Bumpy Ride",
@@ -76,11 +52,5 @@
         "artist": "Queen",
         "url": "assets\\audio\\LVA1TeToQO6DPx4Jj2Ye.mp3",
         "cover": "assets\\images\\WHeghAzsIWO95PAE0uy6.png"
-    },
-    {
-        "title": "Hola",
-        "artist": "asdsadf",
-        "url": "assets\\audio\\CPADIRsjSnEgI6oLcrOk.mp3",
-        "cover": "assets\\images\\1qU1owrcyO6UrytfUs9L.png"
     }
 ]

@@ -20,6 +20,7 @@ export default class Playlist extends Component {
                 <img src="assets\\images\\svg\\playlist.svg">
                 <div class="Playlist__name">${this.playlist.name}</div>
                 <div class="Playlist__info__right">
+                    <div class="Playlist__remove"><img src="assets\\images\\svg\\trash.svg"></div>
                     <div class="Playlist__play"><img src="assets\\images\\svg\\play.svg"></div>
                     <div class="Playlist__unfold"><img src="assets\\images\\svg\\arrow-right.svg"></div>
                 </div>
@@ -52,14 +53,18 @@ export default class Playlist extends Component {
 
         this.playlistInfo = this.container.querySelector(".Playlist__info");
 
+        this.trashButton = this.container.querySelector(".Playlist__remove");
+
         this.playlistInfo.addEventListener("mouseenter", () => {
             this.playButton.classList.remove("hover");
             this.unfoldButton.classList.add("hover");
+            this.trashButton.classList.remove("hover");
         });
 
         this.playlistInfo.addEventListener("mouseleave", () => {
             this.playButton.classList.remove("hover");
             this.unfoldButton.classList.remove("hover");
+            this.trashButton.classList.remove("hover");
         });
 
         // Quan una playlist es reprodueix
@@ -83,22 +88,54 @@ export default class Playlist extends Component {
             e.stopPropagation();
         });
 
+        this.trashButton.addEventListener("mouseenter", e => {
+            this.playButton.classList.remove("hover");
+            this.unfoldButton.classList.remove("hover");
+            this.trashButton.classList.add("hover");
+            e.stopPropagation();
+        });
+
+        this.trashButton.addEventListener("click", e => {
+            this.container.remove();
+            console.log(this.playlist.id);
+
+            var xhr = new XMLHttpRequest();
+            var url = "php/deletePlaylist.php";
+            var params = JSON.stringify({ playlistId: this.playlist.id });
+            
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                }
+            };
+            
+            xhr.send(params);
+            e.stopPropagation();
+        });
+
         this.playButton.addEventListener("mouseenter", () => {
             this.playButton.classList.add("hover");
             this.unfoldButton.classList.remove("hover");
+            this.trashButton.classList.remove("hover");
         });
 
         this.playButton.addEventListener("mouseleave", () => {
             this.playButton.classList.remove("hover");
             this.unfoldButton.classList.add("hover");
+            this.trashButton.classList.remove("hover");
         });
 
         this.unfoldButton.addEventListener("mouseenter", () => {
             this.unfoldButton.classList.add("hover");
+            this.trashButton.classList.remove("hover");
         });
 
         this.unfoldButton.addEventListener("mouseleave", () => {
             this.unfoldButton.classList.remove("hover");
+            this.trashButton.classList.remove("hover");
         });
 
         // Cada playlist té una animació de desplegament al fer clic que funciona mitjançant CSS

@@ -1,6 +1,29 @@
 [
     {
-        "name": "Work",
-        "songs": [11, 12]
+        "name": "Hola",
+        "songs": [
+            1,
+            2,
+            3,
+            4,
+            5
+        ]
+    },
+    {
+        "name": "Playlist test",
+        "songs": [
+            "1",
+            "8",
+            "7"
+        ]
+    },
+    {
+        "name": "Altre playlist",
+        "songs": [
+            "0",
+            "1",
+            "2",
+            "3"
+        ]
     }
 ]

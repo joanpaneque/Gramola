@@ -1,6 +1,6 @@
 <?php
 
-$config = require('./config.php');
+$config = include('./config.php');
 
 // Maneig d'errors
 

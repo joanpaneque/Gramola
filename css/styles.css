@@ -7,8 +7,8 @@ body {
     font-family: system-ui;
     background: #111;
     margin: 0;
-    color: red;
     overflow-x: hidden;
+    color: #fff;
 }
 
 .playlists {
@@ -707,7 +707,11 @@ img.background {
 
 }
 
-.playlists {
+.totesCançons {
+    height: 100%;
+}
+
+.Playlist__playlist {
     height: 100%;
 }
 
@@ -719,4 +723,63 @@ img.background {
 
 .active img {
     filter: invert(0);
+}
+
+.userform {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+
+.userform input[type="submit"] {
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+    border: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.userform input[type="text"] {
+    font-size: 1.2em;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #fff;
+    border: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.infotecnica {
+    padding: 10px;
+    margin-top: 10px;
+    background: #fff;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+}
+
+.infotecnica:hover {
+    background: #aaa;
+}
+
+h1 {
+    font-size: 1.2em;
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+h3 {
+    padding: 10px 5px;
+    background: lightgreen;
+    color: #000;
+    margin-bottom: 0px;
 }

@@ -36,7 +36,7 @@ const totesCançons = document.getElementById("totesCançons");
 let PL = new Playlist({name: "Cançons", songs: -1});
 totesCançons.appendChild(PL.container);
 
-const form = document.getElementById("upload-form");
+const songform = document.getElementById("upload-song");
 const songNameInput = document.getElementById("songname-input");
 const songNameOutput = document.getElementById("songname-output")
 const artistNameInput = document.getElementById("artistname-input");
@@ -120,15 +120,15 @@ playlistNameInput.addEventListener("input", e => {
     }
 });
 
-form.addEventListener("submit", function (event) {
+songform.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const formData = new FormData(form);
-    form.reset();
+    const formData = new FormData(songform);
+    songform.reset();
     songNameOutput.innerHTML = "";
     artistNameOutput.innerHTML = "";
     
-    fetch(form.action, {
+    fetch(songform.action, {
         method: form.method,
         body: formData,
     })
@@ -137,6 +137,7 @@ form.addEventListener("submit", function (event) {
         console.log(data);
         if (data.type == "song") {
             songs.push(data.newSong)
+            location.reload();
         }
     })
     .catch(error => {
@@ -166,7 +167,7 @@ export function positionElements(redo) {
     const imageHeight = bgRect.width * (800 / 1700);
     const playlistContainerTop = audioPlayerTop + apRect.height;
     const discContainerTop = audioPlayerTop - discContainerRect.height / 2 + bgRect.width * (75 / 1700);
-    const dynamicContentHeight = bgRect.width * (600 / 1700);
+    const dynamicContentHeight = bgRect.width * (700 / 1700);
 
     aPlayer.style.top = audioPlayerTop + "px";
     pContainer.style.top = playlistContainerTop + "px";
@@ -186,3 +187,115 @@ songAddButton.addEventListener("click", () => {
 
     songModal.classList.toggle("open");
 })
+
+const playlistAddButton = document.getElementById("playlist-add");
+
+playlistAddButton.addEventListener("click", () => {
+    const playlistModal = document.getElementById("upload-playlist");
+
+    playlistModal.classList.toggle("open");
+});
+
+const playlistForm = document.getElementById("upload-playlist");
+const playlistSongs = document.getElementById("playlist-songs");
+
+playlistForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const formData = new FormData(playlistForm);
+    playlistForm.reset();
+
+    fetch(playlistForm.action, {
+        method: playlistForm.method,
+        body: formData,
+    })
+    .then(response => response.text())
+    .then(data => {
+        console.log(data);
+        location.reload();
+    })
+});
+
+playlistSongs.innerHTML = "";
+
+const inputHiddenSongs = document.getElementById("playlist-songs-array");
+
+inputHiddenSongs.value = "[]";
+
+songs.forEach((song, idx) => {
+    let songContainer = document.createElement("div");
+    let label = document.createElement("label");
+    let input = document.createElement("input");
+    
+    input.type = "checkbox";
+    input.name = "songs[]";
+    input.value = idx;
+    input.classList.add("song-checkbox");
+    label.innerHTML += song.title;
+    songContainer.appendChild(input);
+    songContainer.appendChild(label);
+    playlistSongs.appendChild(songContainer);
+
+    // Add event listener to checkbox
+    input.addEventListener("change", e => {
+        console.log(e.target);
+        let songs = JSON.parse(inputHiddenSongs.value);
+        if (e.target.checked) {
+            songs.push(e.target.value);
+        } else {
+            songs.splice(songs.indexOf(e.target.value), 1);
+        }
+
+        inputHiddenSongs.value = JSON.stringify(songs);
+    });
+})
+
+document.querySelectorAll(".Playlist__song").forEach(song => {
+    song.addEventListener("contextmenu", e => {
+        const songId = song.getAttribute("song-id");
+
+        console.log("a");
+
+        var xhr = new XMLHttpRequest();
+        var url = "php/deleteSong.php";
+        var params = JSON.stringify({ songId: songId });
+        
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+                location.reload();
+            }
+        };
+
+        xhr.send(params);
+
+
+    });
+})
+
+const username = document.getElementById("username");
+
+// get the get parameter named username from the url
+const urlParams = new URLSearchParams(window.location.search);
+const usernameParam = urlParams.get('username');
+
+if (usernameParam) {
+    username.innerHTML = usernameParam;
+} else {
+
+    fetch("php/getsession.php")
+    .then(response => response.text())
+    .then(data => {
+        username.innerHTML = data;
+    })
+}
+
+const userform = document.getElementById("userform");
+
+userform.addEventListener("submit", e => {
+
+
+});

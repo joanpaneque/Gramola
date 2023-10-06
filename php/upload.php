@@ -11,11 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $newPlaylist = [
                 "name" => $playlistname,
-                "songs" => $playlistsongs
+                "songs" => json_decode($playlistsongs)
             ];
 
             $playlists[] = $newPlaylist;
-            $jsonContent = json_encode($songs, JSON_PRETTY_PRINT);
+            $jsonContent = json_encode($playlists, JSON_PRETTY_PRINT);
 
             file_put_contents("..\database\playlists.json", $jsonContent);
 
@@ -82,6 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             "type" => "song",
                             "newSong" => $newSong
                         ]);
+                        header("Location: ../index.html");
                     } else {
                         echo json_encode([
                             "status" => "Error al pujar el fitxer d'imatge.",

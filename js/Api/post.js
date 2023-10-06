@@ -1,8 +1,4 @@
 export default class post {
-    constructor() {
-
-    }
-
     static async file(file) {
         if (!file) return;
 
@@ -21,7 +17,7 @@ export default class post {
                 .then(data => {
                 })
                 .catch(error => {
-                    console.error("Error al subir el archivo:", error);
+                    console.error("Error pujar el fitxer:", error);
                 });
         };
 
