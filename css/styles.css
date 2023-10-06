@@ -1,31 +1,34 @@
+/* Defineix variables CSS personalitzades */
 :root {
-    --primary-color: #ffcd61;
-    --disabled-color: #ccc;
+    --primary-color: #ffcd61; /* Color primari personalitzat */
+    --disabled-color: #ccc; /* Color deshabilitat personalitzat */
 }
 
+/* Estils globals per al cos de la pàgina */
 body {
-    font-family: system-ui;
-    background: #111;
+    font-family: system-ui; /* Font del sistema */
+    background: #111; /* Fons negre */
     margin: 0;
-    overflow-x: hidden;
-    color: #fff;
+    overflow-x: hidden; /* Evita l'escorreguda horitzontal */
+    color: #fff; /* Color del text blanc */
 }
 
+/* Estil per al contenidor de llistes de reproducció */
 .playlists {
-    border-bottom: 1px solid #2C2C2C;
+    border-bottom: 1px solid #2C2C2C; /* Barra inferior groga */
 }
 
-
-
+/* Estil per a llistes de reproducció individuals */
 .Playlist__playlist {
-    background: #333;
-    user-select: none;
+    background: #333; /* Fons fosc */
+    user-select: none; /* No es pot seleccionar el text */
     overflow: hidden;
     transition: 1s;
 }
 
+/* Estil per a la secció d'informació de la llista de reproducció */
 .Playlist__info {
-    background: #222;
+    background: #222; /* Fons fosc */
     padding: 10px;
     font-size: 1em;
     display: flex;
@@ -33,60 +36,70 @@ body {
     gap: 10px;
 }
 
+/* Estil per a imatges a la secció d'informació de la llista de reproducció */
 .Playlist__info img {
     height: 15px;
     margin-left: 10px;
-    filter: invert(1);
+    filter: invert(1); /* Inverteix els colors de la imatge */
 }
 
+/* Estil per a imatges de cançons a la llista de reproducció */
 .Playlist__song img {
     height: 100%;
 }
 
+/* Estil per al contenidor de cobertes de cançons a la llista de reproducció */
 .Playlist__song__cover__container {
     height: 25px;
     width: 25px;
     margin-right: 10px;
 }
 
+/* Efecte de desplaçament sobre la secció d'informació de la llista de reproducció */
 .Playlist__info:hover {
     cursor: pointer;
 }
 
+/* Estil per al nom de la llista de reproducció */
 .Playlist__name {
-    color: #fff;
+    color: #fff; /* Color del text blanc */
 }
 
+/* Estil per al contenidor de cançons de la llista de reproducció */
 .Playlist__songs {
     max-height: 0px;
     overflow: hidden;
     transition: max-height 0.1s ease-in;
 }
 
+/* Estat expandit dels continguts de cançons de la llista de reproducció */
 .Playlist__songs.expanded {
     max-height: 1000px;
     transition: max-height 0.5s ease-in;
 }
 
+/* Estil per a cançons individuals a la llista de reproducció */
 .Playlist__song {
     display: flex;
     align-items: center;
     padding: 10px 20px;
-    border-bottom: 1px solid #444;
-    color: #ccc;
+    border-bottom: 1px solid #444; /* Barra inferior groga fosc */
+    color: #ccc; /* Color del text gris */
     cursor: pointer;
     transition: 0.2s ease-out;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; /* Mostra punt suspensiu si es desborda el text */
 }
 
+/* Efecte de desplaçament sobre les cançons de la llista de reproducció */
 .Playlist__song:hover {
-    background: #444;
-    color: #fff;
+    background: #444; /* Fons fosc */
+    color: #fff; /* Color del text blanc */
     padding-left: 25px;
     transition: 0.2s ease-out;
 }
 
+/* Efecte de desplaçament sobre les imatges de coberta de les cançons */
 .Playlist__song:hover .Playlist__song__cover__overlay {
     position: absolute;
     top: 0;
@@ -96,16 +109,17 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2); /* Fons amb opacitat */
 }
 
+/* Estil per a l'efecte de coberta de cançons a la llista de reproducció */
 .Playlist__song__cover__overlay {
     display: none;
 }
 
-
+/* Estil per a la coberta flotant de la llista de reproducció */
 .Playlist__floatingCover {
-    background: #333;
+    background: #333; /* Fons fosc */
     padding: 5px;
     position: absolute;
     pointer-events: none;
@@ -116,20 +130,22 @@ body {
     margin-left: -100px;
     opacity: 0;
     animation: apareixerImatge 0.2s ease-out;
-
 }
 
+/* Estil per a la imatge dins de la coberta flotant */
 .Playlist__floatingCover img {
     width: 100%;
     height: 100%;
 }
 
+/* Efecte d'aparició de la coberta flotant */
 .Playlist__floatingCover.appear {
     opacity: 1;
     margin-left: 0px;
     animation: apareixerImatge 0.2s ease-out;
 }
 
+/* Animació de les aparicions d'imatge */
 @keyframes apareixerImatge {
     0% {
         opacity: 0;
@@ -146,7 +162,7 @@ body {
     }
 }
 
-
+/* Estil per al contenidor de text de les cançons de la llista de reproducció */
 .Playlist__song__text__container {
     display: flex;
     gap: 10px;
@@ -154,111 +170,123 @@ body {
     width: 100%;
 }
 
+/* Estil per al text de les cançons */
 .Playlist__song__text {
     position: relative;
 }
 
+/* Estil per al darrer element de text de les cançons */
 .Playlist__song__text:last-child {
     visibility: hidden;
 }
 
+/* Estil per al contenidor principal de llistes de reproducció */
 .playlists {
     /* height: 500px; */
-    overflow-y: scroll;
-    background: #555;
+    overflow-y: scroll; /* Escorregut vertical */
+    background: #555; /* Fons fosc */
 }
 
-/* Style the scrollbar width and color for Firefox */
+/* Estil de la barra de desplaçament i el polsador a Firefox */
 .playlists {
     scrollbar-width: thin;
-    scrollbar-color: #888 #555; /* Change the colors as desired */
+    scrollbar-color: #888 #555; /* Canvia els colors segons desitgis */
 }
 
-/* Style the scrollbar track and thumb for Chrome */
+/* Estil de la barra de desplaçament i el polsador a Chrome */
 .playlists::-webkit-scrollbar {
-    width: 10px; /* Adjust the width as needed */
-    background-color: #555;
+    width: 10px; /* Ajusta l'amplada segons necessitis */
+    background-color: #555; /* Fons fosc */
 }
 
 .playlists::-webkit-scrollbar-thumb {
-    background-color: #888; /* Change the color as desired */
+    background-color: #888; /* Canvia el color segons desitgis */
 }
 
 .playlists::-webkit-scrollbar-thumb:hover {
-    background-color: #999; /* Change the color on hover */
+    background-color: #999; /* Canvia el color en fer-hi hover */
 }
 
+/* Estil per a l'element amb l'id 'jukebox' */
 #jukebox {
     width: 100%;
 }
 
+/* Estil per a la capa d'imatge de la coberta de la cançó */
 .Playlist__song__cover__overlay {
     width: 25px;
     height: 25px;
 }
 
+/* Estil per a la imatge dins de la capa d'imatge de la coberta de la cançó */
 .Playlist__song__cover__overlay img {
     width: 50%;
     height: 50%;
-    filter: invert(1);
+    filter: invert(1); /* Inverteix els colors de la imatge */
 }
 
-.Playlist__song__cover__overlay img:last-child {
-    display: none;
-}
-
+/* Estil per al contenidor de la capa d'imatge de la coberta de la cançó */
 .Playlist__song__cover__container {
     position: relative;
 }
 
+/* Estil per a la imatge dins de la capa d'imatge de la coberta de la cançó */
 .Playlist__song__cover__overlay img {
-    filter: invert(1);
-    opacity: 0.8;
+    filter: invert(1); /* Inverteix els colors de la imatge */
+    opacity: 0.8; /* Opacitat */
 }
 
+/* Estil per al text de la cançó en l'estat de reproducció */
 .Playlist__song__text.playing {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Utilitza el color primari personalitzat */
 }
 
+/* Efecte de cursor de maquineta sobre la barra de progrés de l'àudio */
 .AudioPlayer__progressbar:hover {
     cursor: pointer;
 }
 
+/* Efecte de cursor de maquineta sobre el polsador de la barra de progrés de l'àudio */
 .AudioPlayer__progressbar__thumb:hover {
     cursor: pointer;
 }
 
+/* Estil de la barra de progrés de l'àudio */
 .AudioPlayer__progressbar__progress {
     position: relative;
     height: 100%;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Utilitza el color primari personalitzat */
 }
 
+/* Estil de la barra de progrés de l'àudio */
 .AudioPlayer__progressbar {
     width: 700px;
     height: 7px;
     background-color: none;
     display: flex;
     align-items: center;
-    background: black;
+    background: black; /* Fons fosc */
     transition: 0.1s;
 }
 
+/* Estil del polsador de la barra de progrés de l'àudio */
 .AudioPlayer__progressbar__thumb {
     --size: 7px;
     height: var(--size);
     width: var(--size);
     margin-left: calc(var(--size) / -2);
-    background: var(--primary-color);
+    background: var(--primary-color); /* Utilitza el color primari personalitzat */
     border-radius: 100%;
     position: absolute;
 }
 
+/* Efecte d'ampliació de la barra de progrés en fer-hi hover */
 .AudioPlayer__progressbar:hover {
     height: 12px;
     transition: 0.1s;
 }
 
+/* Efecte d'ampliació del polsador de la barra de progrés en fer-hi hover */
 .AudioPlayer__progressbar:hover .AudioPlayer__progressbar__thumb {
     --size: 12px;
     height: var(--size);
@@ -267,14 +295,16 @@ body {
     transition: 0.1s;
 }
 
+/* Estil per a l'àudio player */
 .AudioPlayer {
-    background: #222;
+    background: #222; /* Fons fosc */
     padding: 30px;
     display: flex;
     gap: 10px;
     align-items: center;
 }
 
+/* Estil per a la informació de l'àudio player */
 .AudioPlayer__info {
     overflow: hidden;
     width: 100px;
@@ -283,11 +313,13 @@ body {
     margin-right: 15px;
 }
 
+/* Estil per a la imatge d'artista */
 .art-box img {
     height: 100px;
     width: 100px;
 }
 
+/* Estil per al contenidor d'imatges d'artista */
 .art-box {
     display: flex;
     justify-content: center;
@@ -295,8 +327,7 @@ body {
     height: 108px;
 }
 
-
-
+/* Estil per al contenidor de la barra de progrés de l'àudio */
 .AudioPlayer__progressbar__container {
     display: flex;
     align-items: center;
@@ -305,43 +336,51 @@ body {
     width: fit-content;
 }
 
+/* Estil per al contenidor de controls de l'àudio player */
 .controls-box {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-top: 10px;
 }
 
+/* Estil per als botons de l'àudio player */
 .AudioPlayer__buttons {
     display: flex;
     gap: 20px;
     justify-content: center;
 }
 
+/* Estil per al temps de reproducció de l'àudio player */
 .AudioPlayer__time {
-    color: #fff;
+    color: #fff; /* Color del text blanc */
 }
 
+/* Estil per a les icones de controls */
 .controls-box img {
     height: 20px;
-    filter: invert(1);   
+    filter: invert(1); /* Inverteix els colors de la imatge */
 }
 
+/* Efecte de cursor de maquineta en fer-hi hover sobre els botons */
 .AudioPlayer__buttons:hover {
     cursor: pointer;
 }
 
+/* Estil per al contenidor de la barra de progrés de l'àudio */
 .AudioPlayer__progressbar__container {
     height: 12px;
     display: flex;
     align-items: center;
 }
 
+/* Estil per a la caixa d'estat */
 .status-box {
-    color: #ccc;
+    color: #ccc; /* Color del text gris */
     display: flex;
     overflow: hidden;
 }
 
+/* Estil per als fills de la caixa d'estat */
 .status-box__child {
     position: relative;
     text-wrap: nowrap;
@@ -351,6 +390,7 @@ body {
     height: 24px;
 }
 
+/* Estil per a la icona de música en reproducció */
 .music-icon {
     display: flex;
     gap: 2px;
@@ -362,14 +402,16 @@ body {
     margin-left: 10px;
 }
 
+/* Estil per a les barres de l'animació de música */
 .bar {
     width: 2px;
     height: 1px;
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Utilitza el color primari personalitzat */
     transform-origin: bottom center;
     border-radius: 2px;
 }
 
+/* Animació de l'efecte de música */
 .bar:nth-child(1) {
     animation: musicAnimation 1s linear infinite alternate, barAnimation 1s linear infinite;
 }
@@ -386,6 +428,7 @@ body {
     animation: musicAnimation 1.2s linear infinite alternate, barAnimation 1.2s linear infinite;
 }
 
+/* Animació de l'efecte de música */
 @keyframes musicAnimation {
     0%, 100% {
         transform: scaleY(1);
@@ -395,6 +438,7 @@ body {
     }
 }
 
+/* Animació de l'efecte de música */
 @keyframes barAnimation {
     0% {
         transform: translateY(0);
@@ -404,382 +448,231 @@ body {
     }
 }
 
+/* Estil per als elements forts */
 strong {
     margin-left: 5px;
 }
 
+/* Estil per a icones d'ús ocult */
 .music-icon.hidden {
     opacity: 0;
 }
 
+/* Estil per a l'àudio player deshabilitat */
 .AudioPlayer__player.disabled {
     opacity: 0.5;
     pointer-events: none;
 }
 
+/* Estil per al polsador de la barra de progrés en estat deshabilitat */
 .AudioPlayer__player.disabled .AudioPlayer__progressbar__thumb {
-    background: var(--disabled-color);
+    background: var(--disabled-color); /* Utilitza el color deshabilitat personalitzat */
 }
 
+/* Estil per a la informació de la llista de reproducció a la dreta */
 .Playlist__info__right {
     display: flex;
     gap: 10px;
     margin-left: auto;
 }
 
+/* Estil per als elements de la informació de la llista de reproducció a la dreta */
 .Playlist__info__right div {
     padding: 5px 7px;
     border-radius: 50%;
     transition: 0.1s ease-out;
 }
 
+/* Estil per a imatges a la informació de la llista de reproducció a la dreta */
 .Playlist__info__right img {
     margin: 0;
 }
 
+/* Efecte de desplaçament en fer-hi hover sobre els elements a la dreta de la llista de reproducció */
 .Playlist__info__right .hover {
-    background: #333;
+    background: #333; /* Fons fosc */
     transition: 0.1s ease-out;
 }
 
+/* Estil per a imatges de desplegament de la llista de reproducció plegada */
 .Playlist__unfold.folded img {
-    transform: rotate(90deg);
+    transform: rotate(90deg); /* Rotació de 90 graus */
     transition: 0.1s ease-out;
 }
 
-.Playlist__song__text.plating {
-    color: var(--primary-color);
+/* Estil per al text de la cançó en estat de reproducció */
+.Playlist__song__text.playing {
+    color: var(--primary-color); /* Utilitza el color primari personalitzat */
 }
 
-
+/* Estil per a la capçalera del contenidor de llistes de reproducció */
 .playlist-container-header {
     display: flex;
     justify-content: space-between;
-    color: #fff;
+    color: #fff; /* Color del text blanc */
     padding: 10px;
-    background: #222;
-    border-bottom: 1px solid #2C2C2C;
+    background: #222; /* Fons fosc */
+    border-bottom: 1px solid #2C2C2C; /* Barra inferior groga */
     align-items: center;
 }
 
+/* Estil per a l'element d'afegir a la capçalera del contenidor de llistes de reproducció */
 .playlist-container-header-add {
     display: flex;
     align-items: center;
     padding: 10px;
     border-radius: 50%;
-
 }
 
+/* Efecte de desplaçament en fer-hi hover sobre l'element d'afegir a la capçalera */
 .playlist-container-header-add:hover {
     transition: 0.1s ease-in;
-    background: #333;
+    background: #333; /* Fons fosc */
     cursor: pointer;
 }
 
+/* Estil per a imatges de l'element d'afegir a la capçalera */
 .playlist-container-header-add img {
     height: 15px;
-    filter: invert(1);
+    filter: invert(1); /* Inverteix els colors de la imatge */
 }
 
-    .modal {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        opacity: 0;
-        transform: translate(-50%, -50%);
-        background: #000;
-        padding: 50px;
-        z-index: 4;
-        border-radius: 10px;
-        pointer-events: none;
-        width: 600px
-    }
-
-    .modal.open {
-        pointer-events: all;
-        top: 50%;
-        animation: showModal 0.2s ease forwards;
-    }
-
-    @keyframes hideModal {
-        0% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        100% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.5);
-        }
-    }
-
-    @keyframes showModal {
-        0% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.5);
-        }
-
-        100% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
-    }
-
-.modal input[type="text"] {
-    background: none;
-    border: none;
-    border-bottom: 1px solid #999;
-    color: #999;
-    font-size: 1.2em;
-    padding: 10px;
-    display: block;
-}
-
-.modal .text-input {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.modal .text-input:not(:last-child) {
-    margin-bottom: 15px;
-}
-
-.modal input[type="text"]:focus {
-    outline: none;
-    border-bottom: 1px solid #fff;
-    color: #fff;
-    transition: 0.2s ease;
-}
-
-.modal .output {
-    font-size: 1.2em;
-}
-
-.modal input[type="file"] {
-    color: #fff;
-    border-radius: 5px;
-    display: block;
-    font-size: 1.2em;
-}
-
-.file {
-    margin-top: 20px;
-}
-.file .title {
-    margin-bottom: 10px;
-    color: #888;
-    font-size: 1.2em;
-}
-
-.modal input[type="submit"] {
-    font-size: 1.2em;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    background: #fff;
-    border: none;
-    color: #000;
-    cursor: pointer;
-}
-
-.modal input[type="submit"][disabled] {
-    background: none;
-    border: 1px solid #777;
-    color: #777;
-    cursor: not-allowed;
-}
-
-img.background {
+/* Estil per a la finestra modal */
+.modal {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 50%;
-    max-width: 1700px;
-    width: 100%;
-    transform: translateX(-50%);
-    z-index: 0;
-    filter: saturate(0) brightness(1.5);
-    z-index: 3;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    background: #000; /* Fons negre */
+    padding: 50px;
+    z-index: 4;
+    border-radius: 10px;
     pointer-events: none;
+    width: 600px;
 }
 
-.AudioPlayer {
-    position: absolute;
-    left: calc(50% + 5px);
-    transform: translateX(-50%);
-    top: 720px;
-    width: 845px;
+/* Estil per a la finestra modal oberta */
+.modal.open {
+    pointer-events: all;
+    top: 50%;
+    animation: showModal 0.2s ease forwards;
 }
 
-.dynamic-content {
-    width: 852px;
-    background: #222;
-    padding: 25px;
-    padding-top: 0;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-@media (max-width: 1700px) {
-    .AudioPlayer {
-        width: 50%;
-        display: grid;
-        /* first column takes 1/4 of 100% width, second takes 3/4 */
-        grid-template-columns: 20% 130%;
-    }
-
-    .dynamic-content {
-        width: 50%;
-    }
-
-    .AudioPlayer__player {
-        width: 60%;
-    }
-
-    .AudioPlayer__info {
-    }
-
-    .AudioPlayer__progressbar__container {
-        width: 100%;
-    }
-}
-
-@media (max-width: 1080px) {
-    .AudioPlayer__info {
-        display: none;
-    }
-
-    .AudioPlayer {
-        display: block;
-    }
-
-    .AudioPlayer__player {
-        width: auto;
-    }
-}
-
-.disc-container {
-    background: #666;
-    border-radius: 50%;
-}
-
-.disc-container img {
-    border-radius: 50%;
-    height: 800px;
-}
-
-@keyframes girar {
+/* Animació d'amagar la finestra modal */
+@keyframes hideModal {
     0% {
-        transform: rotate(0deg);
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 
     100% {
-        transform: rotate(360deg);
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
     }
 }
 
-.disc-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+/* Animació de mostrar la finestra modal */
+@keyframes showModal {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
 }
 
+/* Estil per a la tancada de la finestra modal */
+.modal__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+}
 
-.dynamic-content {
+/* Efecte de cursor de maquineta en fer-hi hover sobre el botó de tancar */
+.modal__close:hover {
+    transform: scale(1.2); /* Amplia el botó en fer-hi hover */
+}
+
+/* Estil per al títol de la finestra modal */
+.modal__title {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #fff; /* Color del text blanc */
+}
+
+/* Estil per a la icona de més informació */
+.modal__info {
     display: flex;
-    border-top: 1px solid #2C2C2C;
-    overflow: hidden;
-}
-
-.playlist-container{
-    width: 50%;
-    height: 100%;
-}
-
-.options-container {
-    width: 50%;
-}
-
-.option {
-    height: 35px;
-    padding: 10px;
-
-}
-
-.totesCançons {
-    height: 100%;
-}
-
-.Playlist__playlist {
-    height: 100%;
-}
-
-.active {
-    background: #fff;
-    border-radius: 5px;
-    padding: 0 3px;
-}
-
-.active img {
-    filter: invert(0);
-}
-
-.userform {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-}
-
-
-.userform input[type="submit"] {
-    font-size: 1.2em;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    background: #fff;
-    border: none;
-    color: #000;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
     cursor: pointer;
-}
-
-.userform input[type="text"] {
-    font-size: 1.2em;
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 5px;
-    background: #fff;
-    border: none;
-    color: #000;
-    cursor: pointer;
-}
-
-.infotecnica {
-    padding: 10px;
     margin-top: 10px;
-    background: #fff;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    display: block;
+    color: #fff; /* Color del text blanc */
 }
 
-.infotecnica:hover {
-    background: #aaa;
+/* Efecte de cursor de maquineta en fer-hi hover sobre la icona de més informació */
+.modal__info:hover {
+    transform: scale(1.1); /* Amplia la icona en fer-hi hover */
 }
 
-h1 {
+/* Estil per a l'àrea d'informació de la finestra modal */
+.modal__content {
+    color: #ccc; /* Color del text gris */
     font-size: 1.2em;
-    background: #333;
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
+    line-height: 1.4;
 }
 
-h3 {
-    padding: 10px 5px;
-    background: lightgreen;
-    color: #000;
-    margin-bottom: 0px;
+/* Estil per al peu de pàgina de la finestra modal */
+.modal__footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estil per al botó d'acceptar de la finestra modal */
+.modal__accept {
+    background: var(--primary-color); /* Utilitza el color primari personalitzat */
+    color: #fff; /* Color del text blanc */
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.1s ease-out;
+}
+
+/* Efecte de cursor de maquineta en fer-hi hover sobre el botó d'acceptar */
+.modal__accept:hover {
+    background: #ffbf00; /* Color de fons groc en fer-hi hover */
+    transition: 0.1s ease-in;
+}
+
+/* Estil per a la icona de tancar la finestra modal */
+.modal__close-icon {
+    filter: invert(1); /* Inverteix els colors de la imatge */
+}
+
+/* Estil per als elements de la barra de progrés en l'estat de reproducció */
+.AudioPlayer__progressbar__progress.playing {
+    animation: progressAnimation 1s linear infinite;
+}
+
+/* Animació de la barra de progrés en l'estat de reproducció */
+@keyframes progressAnimation {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+/* Estil per als elements d'error de la barra de progrés */
+.AudioPlayer__progressbar__error {
+    background: red; /* Fons vermell per als errors */
 }

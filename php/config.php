@@ -1,5 +1,6 @@
 <?php
 
+// Alguns textos que es poden reutilitzar en diferents llocs del codi
 return [
     'paths' => [
         'songs_json_path' => '/database/songs.json',

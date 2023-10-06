@@ -4,14 +4,16 @@ import Component from "../Component.js";
 export default class AudioPlayer extends Component {
     constructor(songs) {
         super();
+        
         this.songs = songs;
-        this.playing = false;
-        this.songId = 0;
-        this.cache = {};
-        this.loadSongs();
-        this.loaded = false;
+        this.playing = false;   // Control de reproducció
+        this.songId = 0;        // Cançó actual
+        this.cache = {};        // Cache de les cançons on es guarden els objectes Audio
+        this.loadSongs();       // Carregar les cançons a la cache
+        this.loaded = false;    // Control de si les cançons estan carregades
 
 
+        // HTML del component
         this.html = `
             <div class="AudioPlayer">
                 <div class="AudioPlayer__info">
@@ -41,16 +43,21 @@ export default class AudioPlayer extends Component {
             </div>
         `;
 
+        // Inicialitzar el component
+        // (S'utilitza un mètode per poder actualitzar el component les vegades que es vulgui)
         this.reloadConstructor();
 
 
+        // Reproduir la primera cançó
         setTimeout(() => {
             this.play();
             this.pause();
         });
     }
 
+    // Funció per a posicionar la linia de la progressbar
     positionThumb = (x, update = true) => {
+
         const progressbarRect = this.progressbar.getBoundingClientRect();
         this.barX = x - progressbarRect.left;
         if (this.barX < 0) this.barX = 0;
@@ -63,10 +70,12 @@ export default class AudioPlayer extends Component {
         }
     }
 
+    // Es carreguen les cançons a la cache
     loadSongs() {
         this.songs.forEach((song, idx) => {
             let audio = new Audio(song.url);
             this.cache[idx] = audio;
+            // Cada cop que es carrega una cançó, es crea un event listener per a actualitzar el temps
             this.cache[idx].addEventListener("timeupdate", () => {
                 if (!this.playing) return;
                 this.time.innerHTML = `${secondsToMMSS(this.getCurrentTime())} / ${secondsToMMSS(this.getDuration())}`;
@@ -75,6 +84,7 @@ export default class AudioPlayer extends Component {
 
             });
 
+            // Quan acaba la cançó, es para
             this.cache[idx].addEventListener("ended", () => {
                 if (this.mouseDown) return;
                 this.stop();
@@ -83,7 +93,8 @@ export default class AudioPlayer extends Component {
     }
 
     play(playlist) {
-
+        // Si hi ha una playlist, cada cop que es fa play, es guarda a la base de dades
+        // la reproducció de la playlist
         if (this.playlist) {
             var xhr = new XMLHttpRequest();
             var url = "php/saveLastPlaylist.php";
@@ -100,13 +111,16 @@ export default class AudioPlayer extends Component {
             xhr.send(params);
         }
 
+        // Si hi ha una playlist, es guarda a la variable playlist
         if (playlist) {
             this.playlist = playlist;
             if (!this.playing) {
+
                 if (this.random) {
                     if (this.playlist.songs.length > 1) {
                         let oldSongId = this.songId;
                         let playlistSongsIds = this.playlist.songs;
+                        // S'escull una cançó aleatoria de la playlist
                         do {
                             this.songId = playlistSongsIds[Math.floor(Math.random() * playlistSongsIds.length)];
                         }
@@ -202,11 +216,9 @@ export default class AudioPlayer extends Component {
         this.clearMediaSessionMetadata();
         this.discImage.style.animation = "";
 
-        // Position the progressbar thumb at the beginning
         this.positionThumb(0);
         
         this.time.innerHTML = `00:00 / ${secondsToMMSS(this.getDuration())}`;
-        // this.discImage.src = "#";
         positionElements(true);
         // this.reloadConstructor();
         // this.stopAllSongs();

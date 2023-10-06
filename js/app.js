@@ -2,19 +2,6 @@ import Api from "./Api/api.js"
 import Playlist from "./components/Playlist/Playlist.js";
 import AudioPlayer from "./components/AudioPlayer/AudioPlayer.js"; 
 
-// const modals = document.querySelectorAll("form.modal");
-
-// modals.forEach(modal => {
-//     document.body.addEventListener("click", () => {
-//         modal.classList.toggle("open");
-//         if (modal.classList.contains("open")) {
-//             modal.style.animation = "";
-//         } else {
-//             modal.style.animation = "hideModal 0.2s ease forwards";
-//         }
-//     })
-
-// })
 
 // Es carreguen totes les cançons i les playlists al carregar la aplicació.
 // CONSIDERACIÓ: Aquest mètode és suficient per aquest projecte però no és una sol·lució escalable
@@ -32,31 +19,41 @@ playlists.forEach(playlist => {
     playlistsContainer.appendChild(PL.container);
 });
 
+
+// Es crea una playlist amb totes les cançons i s'afegeix al contenidor de totes les cançons
 const totesCançons = document.getElementById("totesCançons");
 let PL = new Playlist({name: "Cançons", songs: -1});
 totesCançons.appendChild(PL.container);
 
+
+// Elements del DOM
 const songform = document.getElementById("upload-song");
 const songNameInput = document.getElementById("songname-input");
 const songNameOutput = document.getElementById("songname-output")
 const artistNameInput = document.getElementById("artistname-input");
 const artistNameOutput = document.getElementById("artistname-output");
 const songSubmit = document.getElementById("song-submit");
-
 const songFileInput = document.getElementById("song-input");
 const coverFileInput = document.getElementById("cover-input");
 
+
+// Cada input té un event listener que crida a la funció validateSongInput per validar el formulari
 artistNameInput.addEventListener("input", () => validateSongInput());
 songNameInput.addEventListener("input", () => validateSongInput());
 songFileInput.addEventListener("input", () => validateSongInput());
 coverFileInput.addEventListener("input", () => validateSongInput());
 
+
+// Al carregar la pàgina es deshabilita el botó de pujar cançó i es neteja el formulari
 artistNameInput.value = "";
 songNameInput.value = "";
 artistNameOutput.innerHTML = "";
 songNameOutput.innerHTML = "";
 
-function validateSongInput() {    
+function validateSongInput() {  
+    
+    // S'utilitza la variable valid per saber si el formulari és vàlid o no
+    // la variable és booleana i per defecte és true. A la que hi hagi un error, es canvia a false i es deshabilita el botó de pujar cançó
     let valid = true;
     if (artistNameInput.value.length == 0) {
         artistNameOutput.innerHTML = "";
@@ -120,24 +117,27 @@ playlistNameInput.addEventListener("input", e => {
     }
 });
 
+
+// Event listener del formulari de pujar cançó
 songform.addEventListener("submit", function (event) {
+
+    // Evita que es refresqui la pàgina
     event.preventDefault();
 
-    const formData = new FormData(songform);
-    songform.reset();
+    const formData = new FormData(songform); // Convertim el formulari a un FormData per poder enviar-lo amb fetch
+    songform.reset(); // Netejem el formulari
     songNameOutput.innerHTML = "";
     artistNameOutput.innerHTML = "";
     
     fetch(songform.action, {
-        method: form.method,
-        body: formData,
+        method: form.method, // utilitzem el mètode del formulari definit a index.html
+        body: formData, // enviem el FormData al body de la petició
     })
     .then(response => response.json())
     .then(data => {
         console.log(data);
         if (data.type == "song") {
             songs.push(data.newSong)
-            location.reload();
         }
     })
     .catch(error => {
@@ -146,9 +146,14 @@ songform.addEventListener("submit", function (event) {
 });
 
 
+// Cada cop que es redimensiona la finestra, es crida a la funció positionElements
 window.addEventListener("resize", positionElements);
+// Quan es carrega la pàgina, es crida a la funció positionElements
 positionElements(true);
 
+
+// La funció position elements fa que depenent del tamany de la gramola
+// els elements de la pàgina es posicionin correctament
 export function positionElements(redo) {
     const backgroundImage = document.querySelector("img.background");
     const aPlayer = document.querySelector(".AudioPlayer");
@@ -157,31 +162,36 @@ export function positionElements(redo) {
     const discImage = document.getElementById("disc");
     const dynamicContentContainer = document.getElementById("dynamic-content");
 
-
+    // Es calculen les mides de cada element
     const bgRect = backgroundImage.getBoundingClientRect();
     const apRect = aPlayer.getBoundingClientRect();
     const discContainerRect = discContainer.getBoundingClientRect();
 
 
+    // Es calculen les posicions de cada element
     const audioPlayerTop = bgRect.width * (720 / 1700);
     const imageHeight = bgRect.width * (800 / 1700);
     const playlistContainerTop = audioPlayerTop + apRect.height;
     const discContainerTop = audioPlayerTop - discContainerRect.height / 2 + bgRect.width * (75 / 1700);
     const dynamicContentHeight = bgRect.width * (700 / 1700);
 
+
+    // S'apliquen les mides i posicions calculades a cada element
     aPlayer.style.top = audioPlayerTop + "px";
     pContainer.style.top = playlistContainerTop + "px";
     discContainer.style.top = discContainerTop + "px";
     discImage.style.height = imageHeight + "px";
     dynamicContentContainer.style.height = dynamicContentHeight + "px"
 
+    // Si redo és true, es crida a la funció positionElements.
     if (redo) {
         positionElements();
     }
 }
 
-const songAddButton = document.getElementById("song-add");
 
+// Gestió de modals
+const songAddButton = document.getElementById("song-add");
 songAddButton.addEventListener("click", () => {
     const songModal = document.getElementById("upload-song");
 
@@ -199,7 +209,10 @@ playlistAddButton.addEventListener("click", () => {
 const playlistForm = document.getElementById("upload-playlist");
 const playlistSongs = document.getElementById("playlist-songs");
 
+
+// Event listener del formulari de pujar playlist
 playlistForm.addEventListener("submit", e => {
+    // Evita que es refresqui la pàgina
     e.preventDefault();
 
     const formData = new FormData(playlistForm);
@@ -218,8 +231,10 @@ playlistForm.addEventListener("submit", e => {
 
 playlistSongs.innerHTML = "";
 
+// Es creen els checkbox de cada cançó i s'afegeixen al formulari de pujar playlist
 const inputHiddenSongs = document.getElementById("playlist-songs-array");
 
+// Les cançons seleccionades es guarden en un input hidden per poder enviar-les amb el formulari
 inputHiddenSongs.value = "[]";
 
 songs.forEach((song, idx) => {
@@ -236,7 +251,7 @@ songs.forEach((song, idx) => {
     songContainer.appendChild(label);
     playlistSongs.appendChild(songContainer);
 
-    // Add event listener to checkbox
+    // Quan es selecciona una cançó, s'afegeix al input hidden
     input.addEventListener("change", e => {
         console.log(e.target);
         let songs = JSON.parse(inputHiddenSongs.value);
@@ -250,11 +265,12 @@ songs.forEach((song, idx) => {
     });
 })
 
+
+// Cada cop que es fa click dret a una cançó, es crida a la funció deleteSong
+// que envia una petició a deleteSong.php per eliminar la cançó de la base de dades
 document.querySelectorAll(".Playlist__song").forEach(song => {
     song.addEventListener("contextmenu", e => {
         const songId = song.getAttribute("song-id");
-
-        console.log("a");
 
         var xhr = new XMLHttpRequest();
         var url = "php/deleteSong.php";
@@ -278,7 +294,7 @@ document.querySelectorAll(".Playlist__song").forEach(song => {
 
 const username = document.getElementById("username");
 
-// get the get parameter named username from the url
+// Obté el nom d'usuari de la url i el mostra a la pàgina
 const urlParams = new URLSearchParams(window.location.search);
 const usernameParam = urlParams.get('username');
 
@@ -289,13 +305,7 @@ if (usernameParam) {
     fetch("php/getsession.php")
     .then(response => response.text())
     .then(data => {
+        // El mateix PHP retorna 'Anònim' si no hi ha cap sessió iniciada
         username.innerHTML = data;
     })
 }
-
-const userform = document.getElementById("userform");
-
-userform.addEventListener("submit", e => {
-
-
-});

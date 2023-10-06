@@ -1,4 +1,5 @@
 <?php
+
 $json_data = file_get_contents('php://input');
 $data = json_decode($json_data, true);
 
@@ -17,11 +18,11 @@ if (isset($data['songId']) && !empty($data['songId'])) {
 
         file_put_contents("..\database\songs.json", $jsonContent);
 
-        echo "Done";
+        echo "OK";
     } else {
-        echo "Error: Song not found";
+        echo "Error: No s'ha trobat la cançó";
     }
 } else {
-    echo "Error: Invalid input";
+    echo "Error: Input invalid";
 }
 ?>

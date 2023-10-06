@@ -14,9 +14,8 @@ if (isset($data['playlistId']) && !empty($data['playlistId'])) {
 
     file_put_contents("..\database\playlists.json", $jsonContent);
 
-    echo "Done";
+    echo "Fet";
 } else {
     echo "Error.";
 }
-
 ?>

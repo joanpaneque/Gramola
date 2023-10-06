@@ -51,31 +51,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (move_uploaded_file($_FILES["song"]["tmp_name"], $audioTargetFile)) {
                     if (move_uploaded_file($_FILES["cover"]["tmp_name"], $imageTargetFile)) {
 
-                        // Agregar la información al archivo JSON
+                        // Afegim informació al fitxer songs.json
                         $songname = $_POST["songname"];
                         $artistname = $_POST["artistname"];
                         $url = "assets\audio\\$audioFileName";
                         $cover = "assets\images\\$imageFileName";
     
-                        // Leer el contenido actual de songs.json
                         $songs = json_decode(file_get_contents("..\database\songs.json"), true);
     
-                        // Crear un nuevo objeto con la información y agregarlo al array
+                        // Creem un nou objecte cançó
                         $newSong = [
                             "title" => $songname,
                             "artist" => $artistname,
                             "url" => $url,
                             "cover" => $cover
                         ];
-    
+
+                        // Afegim la cançó al fitxer songs.json    
                         $songs[] = $newSong;
     
-                        // Codificar el array actualizado a JSON
                         $jsonContent = json_encode($songs, JSON_PRETTY_PRINT);
     
-                        // Guardar el contenido en songs.json
                         file_put_contents("..\database\songs.json", $jsonContent);
     
+
                         echo json_encode([
                             "status" => "ok",
                             "error" => false,
